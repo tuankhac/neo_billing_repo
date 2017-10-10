@@ -1,0 +1,74 @@
+INFO  2017-10-02 15:42:54,017 vn.com.neo.wcg.Main ===========Load properties file
+ 
+INFO  2017-10-02 15:42:54,019 vn.com.neo.wcg.Main ===========Bat dau chay ham run
+ 
+INFO  2017-10-02 15:42:54,020 vn.com.neo.wcg.Main ===========Start get files
+ 
+INFO  2017-10-02 15:42:54,021 vn.com.neo.wcg.Main ===========Bat dau tim file!!!!!
+ 
+INFO  2017-10-02 15:42:54,023 vn.com.neo.wcg.Main ===========Bat dau check file!!!!!
+ 
+INFO  2017-10-02 15:42:54,025 vn.com.neo.wcg.Main ===========Check file D:/_app/billing/data/input/Company.Information.2017-10-02.14.csv
+ 
+INFO  2017-10-02 15:42:54,259 vn.com.neo.wcg.Main ===========Co file thoa man (chua load)
+ 
+INFO  2017-10-02 15:42:54,502 vn.com.neo.wcg.Main ===========Truncate billing.load_tmp ok...
+ 
+INFO  2017-10-02 15:42:54,942 vn.com.neo.wcg.Main ===========Truncate billing.company_information ok...
+ 
+INFO  2017-10-02 15:42:55,410 vn.com.neo.wcg.Main ===========Sql del_duplicate_records: {call standard_records(?)}
+ 
+INFO  2017-10-02 15:42:55,502 vn.com.neo.wcg.Main ===========Sql insert record: insert into billing.company_information select * from billing.load_tmp
+ 
+INFO  2017-10-02 15:42:56,260 vn.com.neo.wcg.Main ===========Sleep 1 gio
+ 
+INFO  2017-10-02 15:53:38,452 vn.com.neo.wcg.Main ===========Load properties file
+ 
+INFO  2017-10-02 15:53:38,454 vn.com.neo.wcg.Main ===========Bat dau chay ham run
+ 
+INFO  2017-10-02 15:53:38,456 vn.com.neo.wcg.Main ===========Start get files
+ 
+INFO  2017-10-02 15:53:38,457 vn.com.neo.wcg.Main ===========Bat dau tim file!!!!!
+ 
+INFO  2017-10-02 15:53:38,459 vn.com.neo.wcg.Main ===========Bat dau check file!!!!!
+ 
+INFO  2017-10-02 15:53:38,460 vn.com.neo.wcg.Main ===========Check file D:/_app/billing/data/input/Company.Information.2017-10-02.14.csv
+ 
+INFO  2017-10-02 15:53:38,697 vn.com.neo.wcg.Main ===========File D:/_app/billing/data/input/Company.Information.2017-10-02.14.csv da duoc load vao he thong
+ 
+WARN  2017-10-02 15:53:38,698 vn.com.neo.wcg.Main =========== File da duoc load : D:/_app/billing/data/input/Company.Information.2017-10-02.14.csv
+ 
+INFO  2017-10-02 15:53:38,698 vn.com.neo.wcg.Main ===========Sleep 1 gio
+ 
+INFO  2017-10-02 15:54:19,616 vn.com.neo.wcg.Main ===========Load properties file
+ 
+INFO  2017-10-02 15:54:19,618 vn.com.neo.wcg.Main ===========Bat dau chay ham run
+ 
+INFO  2017-10-02 15:54:19,619 vn.com.neo.wcg.Main ===========Start get files
+ 
+INFO  2017-10-02 15:54:19,620 vn.com.neo.wcg.Main ===========Bat dau tim file!!!!!
+ 
+INFO  2017-10-02 15:54:19,621 vn.com.neo.wcg.Main ===========Bat dau check file!!!!!
+ 
+INFO  2017-10-02 15:54:19,623 vn.com.neo.wcg.Main ===========Check file D:/_app/billing/data/input/Company.Information.2017-10-02.14.csv
+ 
+INFO  2017-10-02 15:54:19,846 vn.com.neo.wcg.Main ===========File D:/_app/billing/data/input/Company.Information.2017-10-02.14.csv da duoc load vao he thong
+ 
+WARN  2017-10-02 15:54:19,846 vn.com.neo.wcg.Main =========== File da duoc load : D:/_app/billing/data/input/Company.Information.2017-10-02.14.csv
+ 
+INFO  2017-10-02 15:54:19,846 vn.com.neo.wcg.Main ===========Sleep 1 gio
+ 
+INFO  2017-10-02 16:54:19,642 vn.com.neo.wcg.Main ===========Start get files
+ 
+INFO  2017-10-02 16:54:19,644 vn.com.neo.wcg.Main ===========Bat dau tim file!!!!!
+ 
+INFO  2017-10-02 16:54:19,645 vn.com.neo.wcg.Main ===========Bat dau check file!!!!!
+ 
+INFO  2017-10-02 16:54:19,646 vn.com.neo.wcg.Main ===========Check file D:/_app/billing/data/input/Company.Information.2017-10-02.14.csv
+ 
+INFO  2017-10-02 16:54:19,692 vn.com.neo.wcg.Main ===========File D:/_app/billing/data/input/Company.Information.2017-10-02.14.csv da duoc load vao he thong
+ 
+WARN  2017-10-02 16:54:19,692 vn.com.neo.wcg.Main =========== File da duoc load : D:/_app/billing/data/input/Company.Information.2017-10-02.14.csv
+ 
+INFO  2017-10-02 16:54:19,693 vn.com.neo.wcg.Main ===========Sleep 1 gio
+ 

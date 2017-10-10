@@ -1,0 +1,14 @@
+voice,normal,postpaid,onnet
+voice,normal,postpaid,offnet-int
+voice,normal,postpaid,offnet-nat
+voice,normal,postpaid,offnet-nat
+voice,normal,postpaid,offnet-nat
+voice,normal,postpaid,offnet-nat
+voice,normal,postpaid,offnet-nat
+voice,normal,postpaid,onnet
+voice,normal,postpaid,offnet-int
+voice,normal,postpaid,offnet-nat
+voice,normal,postpaid,offnet-nat
+voice,normal,postpaid,offnet-nat
+voice,normal,postpaid,offnet-nat
+voice,normal,postpaid,offnet-nat

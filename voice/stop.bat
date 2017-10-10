@@ -1,0 +1,2 @@
+TASKKILL /FI "WINDOWTITLE eq CDR Voice"
+exit

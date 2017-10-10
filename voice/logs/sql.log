@@ -1,0 +1,67 @@
+2017-10-10_07-45-00|ExportData:Voice_2017-10-10.07.txt|select service_type,scenario,subs_type,call_type from billing.cdr_voice_detail partition(p092017)
+2017-10-10_07-45-02|DataSynthesis:{call synthetic_subs_mvpn_by_month(?)}
+
+2017-10-10_07-50-00|ExportData:Voice_2017-10-10.07.txt|select service_type,scenario,subs_type,call_type from billing.cdr_voice_detail partition(p092017)
+2017-10-10_07-50-02|DataSynthesis:{call synthetic_subs_mvpn_by_month(?)}
+
+2017-10-10_07-55-00|ExportData:Voice_2017-10-10.07.txt|select service_type,scenario,subs_type,call_type from billing.cdr_voice_detail partition(p092017)
+2017-10-10_07-55-02|DataSynthesis:{call synthetic_subs_mvpn_by_month(?)}
+
+2017-10-10_08-00-00|ExportData:Voice_2017-10-10.08.txt|select service_type,scenario,subs_type,call_type from billing.cdr_voice_detail partition(p092017)
+2017-10-10_08-00-02|DataSynthesis:{call synthetic_subs_mvpn_by_month(?)}
+
+2017-10-10_08-05-00|ExportData:Voice_2017-10-10.08.txt|select service_type,scenario,subs_type,call_type from billing.cdr_voice_detail partition(p092017)
+2017-10-10_08-05-02|DataSynthesis:{call synthetic_subs_mvpn_by_month(?)}
+
+2017-10-10_08-10-00|ExportData:Voice_2017-10-10.08.txt|select service_type,scenario,subs_type,call_type from billing.cdr_voice_detail partition(p092017)
+2017-10-10_08-10-03|DataSynthesis:{call synthetic_subs_mvpn_by_month(?)}
+
+2017-10-10_08-15-00|ExportData:Voice_2017-10-10.08.txt|select service_type,scenario,subs_type,call_type from billing.cdr_voice_detail partition(p092017)
+2017-10-10_08-15-02|DataSynthesis:{call synthetic_subs_mvpn_by_month(?)}
+
+2017-10-10_08-51-30|--------------File CDR BPXCONF duoc xu ly:2017-10-10.08.PBXCONF.site1pbx.cdr
+2017-10-10_09-05-00|ExportData:Voice_2017-10-10.09.txt|select service_type,scenario,subs_type,call_type from billing.cdr_voice_detail partition(p092017)
+2017-10-10_09-05-02|DataSynthesis:{call synthetic_subs_mvpn_by_month(?)}
+
+2017-10-10_09-05-04|DataSynthesis:{call charge_money_promo_data(?)}
+
+2017-10-10_09-05-04|DataSynthesis:{call p_synthetic_revenue_by_service_pac(?)}
+
+2017-10-10_09-05-04|Err DataSynthesis:null
+2017-10-10_10-05-00|ExportData:Voice_2017-10-10.10.txt|select service_type,scenario,subs_type,call_type from billing.cdr_voice_detail partition(p092017)
+2017-10-10_10-05-02|DataSynthesis:{call synthetic_subs_mvpn_by_month(?)}
+
+2017-10-10_10-05-03|DataSynthesis:{call charge_money_promo_data(?)}
+
+2017-10-10_10-05-03|DataSynthesis:{call p_synthetic_revenue_by_service_pac(?)}
+
+2017-10-10_10-05-03|Err DataSynthesis:null
+2017-10-10_11-05-00|ExportData:Voice_2017-10-10.11.txt|select service_type,scenario,subs_type,call_type from billing.cdr_voice_detail partition(p092017)
+2017-10-10_11-05-04|DataSynthesis:{call synthetic_subs_mvpn_by_month(?)}
+
+2017-10-10_11-05-07|DataSynthesis:{call charge_money_promo_data(?)}
+
+2017-10-10_11-05-07|DataSynthesis:{call p_synthetic_revenue_by_service_pac(?)}
+
+2017-10-10_11-05-07|Err DataSynthesis:null
+2017-10-10_12-05-02|DataSynthesis:{call SYNTHETIC_SUBS_MVPN_BY_MONTH(?)}
+
+2017-10-10_12-05-03|DataSynthesis:{call CHARGE_MONEY_PROMO_DATA(?)}
+
+2017-10-10_12-05-03|DataSynthesis:{call P_SYNTHETIC_REVENUE_BY_SERVICE_PAC(?)}
+
+2017-10-10_12-05-03|Err DataSynthesis:null
+2017-10-10_13-05-02|DataSynthesis:{call SYNTHETIC_SUBS_MVPN_BY_MONTH(?)}
+
+2017-10-10_13-05-04|DataSynthesis:{call CHARGE_MONEY_PROMO_DATA(?)}
+
+2017-10-10_13-05-04|DataSynthesis:{call P_SYNTHETIC_REVENUE_BY_SERVICE_PAC(?)}
+
+2017-10-10_13-05-04|Err DataSynthesis:null
+2017-10-10_14-05-02|DataSynthesis:{call SYNTHETIC_SUBS_MVPN_BY_MONTH(?)}
+
+2017-10-10_14-05-03|DataSynthesis:{call CHARGE_MONEY_PROMO_DATA(?)}
+
+2017-10-10_14-05-03|DataSynthesis:{call P_SYNTHETIC_REVENUE_BY_SERVICE_PAC(?)}
+
+2017-10-10_14-05-03|Err DataSynthesis:null

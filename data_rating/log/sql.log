@@ -1,0 +1,12 @@
+2017-10-10_12-32-16|Check_file_name: SELECT count(1) count_ FROM billing.filename_cdr where file_name='data_2222.csv' 
+2017-10-10_12-32-16|Check_content_file: SELECT count(1) count_ FROM billing.filename_cdr where content='ef95ca5fc2100ef494bed4dfe96c1b74' and date_format(date_create,'%Y-%m-%d')=date_format(sysdate(),'%Y-%m-%d') 
+2017-10-10_12-32-16| SELECT rat_id, data, b.charge charge FROM billing.cost_data a, billing.charging_price b  where a.rat_id=b.cm_detail_id and a.data_limit='20000000' 
+2017-10-10_12-32-16| SELECT rat_id, data, b.charge charge FROM billing.cost_data a, billing.charging_price b  where a.rat_id=b.cm_detail_id and a.data_limit='10000000' 
+2017-10-10_12-32-16| SELECT rat_id, data, b.charge charge FROM billing.cost_data a, billing.charging_price b  where a.rat_id=b.cm_detail_id and a.data_limit='50000000' 
+2017-10-10_12-32-16| SELECT rat_id, data, b.charge charge FROM billing.cost_data a, billing.charging_price b  where a.rat_id=b.cm_detail_id and a.data_limit='10000000' 
+2017-10-10_12-32-16| SELECT rat_id, data, b.charge charge FROM billing.cost_data a, billing.charging_price b  where a.rat_id=b.cm_detail_id and a.data_limit='300000000' 
+2017-10-10_12-32-16| SELECT rat_id, data, b.charge charge FROM billing.cost_data a, billing.charging_price b  where a.rat_id=b.cm_detail_id and a.data_limit='10000000' 
+2017-10-10_12-32-16| SELECT rat_id, data, b.charge charge FROM billing.cost_data a, billing.charging_price b  where a.rat_id=b.cm_detail_id and a.data_limit='10000000' 
+2017-10-10_12-32-16| SELECT rat_id, data, b.charge charge FROM billing.cost_data a, billing.charging_price b  where a.rat_id=b.cm_detail_id and a.data_limit='100000000' 
+2017-10-10_12-32-16| SELECT rat_id, data, b.charge charge FROM billing.cost_data a, billing.charging_price b  where a.rat_id=b.cm_detail_id and a.data_limit='10000000' 
+2017-10-10_12-32-17| SELECT rat_id, data, b.charge charge FROM billing.cost_data a, billing.charging_price b  where a.rat_id=b.cm_detail_id and a.data_limit='10000000' 

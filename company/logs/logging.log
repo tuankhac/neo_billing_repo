@@ -1,0 +1,14 @@
+INFO  2017-10-09 14:11:30,268 vn.com.neo.wcg.Main ===========Load properties file
+ 
+INFO  2017-10-09 14:11:30,271 vn.com.neo.wcg.Main ===========Bat dau chay ham run
+ 
+INFO  2017-10-09 14:11:30,272 vn.com.neo.wcg.Main ===========Start get files
+ 
+INFO  2017-10-09 14:11:30,273 vn.com.neo.wcg.Main ===========Bat dau tim file!!!!!
+ 
+INFO  2017-10-09 14:11:30,275 vn.com.neo.wcg.Main ===========Bat dau check file!!!!!
+ 
+WARN  2017-10-09 14:11:30,275 vn.com.neo.wcg.Main ===========Khong co file moi
+ 
+INFO  2017-10-09 14:11:30,275 vn.com.neo.wcg.Main ===========Sleep 1 gio
+ 
