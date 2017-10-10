@@ -1,0 +1,4 @@
+crud_new_cost_voice_group_service=select new_cost_voice_group(?,?,?,?,?);
+crud_search_cost_voice_group_service={call search_cost_voice_group(?,?,?,?,?,?,?)};
+crud_edit_cost_voice_group_service=select edit_cost_voice_group(?,?,?,?,?);
+crud_delete_cost_voice_group_service=select del_cost_voice_group(?,?,?);

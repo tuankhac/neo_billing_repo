@@ -1,0 +1,3 @@
+#set ($list = $u.ref("view_data_upload_promo","default",["$!{upload_id}","$!{id_promo}","$!{hinhthuc}","$!{pmonth}","$!{record_per_page}","$!{page_index}",
+"$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],8))
+{"NOP":"$!list[0]['NOP']'", "NOR":"$!list[0]['NOR']"}

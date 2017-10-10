@@ -1,0 +1,10 @@
+cost_voice_mpbx_id=ID
+cost_voice_mpbx_name=NAME
+cost_voice_mpbx_from_minute=FROM_MINUTE
+cost_voice_mpbx_to_minute=TO_MINUTE
+cost_voice_mpbx_price=PRICE
+cost_voice_mpbx_group_id=GROUP_ID
+cost_voice_mpbx_free=FREE
+cost_voice_mpbx_note=NOTE
+cost_voice_mpbx_from_date=FROM_DATE
+cost_voice_mpbx_to_date=TO_DATE

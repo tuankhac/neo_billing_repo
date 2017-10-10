@@ -1,0 +1,119 @@
+#set ($v = $u.ref("crud_search_company_information_service","default",["$!{company_id}","$!{company_name}","$!{mvpn_users}","$!{mpbx_users}","$!{conference_users}","$!{mpbx_main_numbers}","$!{billing_cycle_day}","$!{created}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],12)[0] )
+<table id="company_information" class='table table-condensed'>
+   <tr>
+      <th colspan='4'><b>${n.i18n.crud_delete_button_message.toUpperCase()}</b></th>
+   </tr>
+   <tr>
+      <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="company_id_label">${n.i18n.company_information_company_id}</td>
+      <td>			<input readonly type="text" class="form-control" value='$!v["COMPANY_ID"]' name="company_id" id="company_id"><span id="company_id_msg"></span></td>
+      <td title="${n.i18n.crud_valid_length_prefix} 1000 ${n.i18n.crud_valid_length_postfix}" id="company_name_label">${n.i18n.company_information_company_name}</td>
+      <td>			<input readonly type="text" class="form-control" value='$!v["COMPANY_NAME"]' name="company_name" id="company_name"><span id="company_name_msg"></span></td>
+   </tr>
+   <tr>
+      <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="mvpn_users_label">${n.i18n.company_information_mvpn_users}</td>
+      <td>			<input readonly type="text" class="form-control" value='$!v["MVPN_USERS"]' name="mvpn_users" id="mvpn_users"><span id="mvpn_users_msg"></span></td>
+      <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="mpbx_users_label">${n.i18n.company_information_mpbx_users}</td>
+      <td>			<input readonly type="text" class="form-control" value='$!v["MPBX_USERS"]' name="mpbx_users" id="mpbx_users"><span id="mpbx_users_msg"></span></td>
+   </tr>
+   <tr>
+      <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="conference_users_label">${n.i18n.company_information_conference_users}</td>
+      <td>			<input readonly type="text" class="form-control" value='$!v["CONFERENCE_USERS"]' name="conference_users" id="conference_users"><span id="conference_users_msg"></span></td>
+      <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="mpbx_main_numbers_label">${n.i18n.company_information_mpbx_main_numbers}</td>
+      <td>			<input readonly type="text" class="form-control" value='$!v["MPBX_MAIN_NUMBERS"]' name="mpbx_main_numbers" id="mpbx_main_numbers"><span id="mpbx_main_numbers_msg"></span></td>
+   </tr>
+   <tr>
+      <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="billing_cycle_day_label">${n.i18n.company_information_billing_cycle_day}</td>
+      <td>			<input readonly type="text" class="form-control" value='$!v["BILLING_CYCLE_DAY"]' name="billing_cycle_day" id="billing_cycle_day"><span id="billing_cycle_day_msg"></span></td>
+      <td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="created_label">${n.i18n.company_information_created}</td>
+      <td>			<input readonly type="text" class="form-control" value='$!v["CREATED"]' name="created" id="created"><span id="created_msg"></span></td>
+   </tr>
+   <tr id='control'>
+      <td colspan='4' align='center'><font id="result"></font>
+         <button class="btn btn-primary" name="doDel" id="doDel"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message}</button>&nbsp;
+         <button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+      </td>
+   </tr>
+</table>
+<script type="text/javascript">
+   $(function(){
+   	$('#doDel').click(function(){
+   		if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+   		$('#result').html('${n.i18n.crud_process_message}');
+   		$.ajax({
+   			url: 'crud_exec.jsp?crud_type=com_info/delete_exec.html&company_id=${company_id}',
+   			success: function(data){ 
+   				if (data=="1.0"){
+   					$('#result').html("${n.i18n.crud_delete_message}"); 
+   				}else{
+   					$('#result').html(data);
+   				}
+   			}
+   		});
+   	});
+   	$('#goSearch').click(function(){
+   		window.location.href='crud.jsp?crud_type=com_info/index.html';
+   	});
+   	$('#company_id').blur(function(){
+   		if ($('#company_id').val()*1==$('#company_id').val()){
+   			$('#company_id_msg').html('');
+   			$('#company_id_msg').attr('style','display:none');
+   		}else{
+   			$('#company_id_msg').html('${n.i18n.company_information_company_id} ${n.i18n.crud_is_number_message}');
+   			$('#company_id_msg').attr('style','display:block');
+   			return false;
+   		}
+   	});
+   	$('#mvpn_users').blur(function(){
+   		if ($('#mvpn_users').val()*1==$('#mvpn_users').val()){
+   			$('#mvpn_users_msg').html('');
+   			$('#mvpn_users_msg').attr('style','display:none');
+   		}else{
+   			$('#mvpn_users_msg').html('${n.i18n.company_information_mvpn_users} ${n.i18n.crud_is_number_message}');
+   			$('#mvpn_users_msg').attr('style','display:block');
+   			return false;
+   		}
+   	});
+   	$('#mpbx_users').blur(function(){
+   		if ($('#mpbx_users').val()*1==$('#mpbx_users').val()){
+   			$('#mpbx_users_msg').html('');
+   			$('#mpbx_users_msg').attr('style','display:none');
+   		}else{
+   			$('#mpbx_users_msg').html('${n.i18n.company_information_mpbx_users} ${n.i18n.crud_is_number_message}');
+   			$('#mpbx_users_msg').attr('style','display:block');
+   			return false;
+   		}
+   	});
+   	$('#conference_users').blur(function(){
+   		if ($('#conference_users').val()*1==$('#conference_users').val()){
+   			$('#conference_users_msg').html('');
+   			$('#conference_users_msg').attr('style','display:none');
+   		}else{
+   			$('#conference_users_msg').html('${n.i18n.company_information_conference_users} ${n.i18n.crud_is_number_message}');
+   			$('#conference_users_msg').attr('style','display:block');
+   			return false;
+   		}
+   	});
+   	$('#mpbx_main_numbers').blur(function(){
+   		if ($('#mpbx_main_numbers').val()*1==$('#mpbx_main_numbers').val()){
+   			$('#mpbx_main_numbers_msg').html('');
+   			$('#mpbx_main_numbers_msg').attr('style','display:none');
+   		}else{
+   			$('#mpbx_main_numbers_msg').html('${n.i18n.company_information_mpbx_main_numbers} ${n.i18n.crud_is_number_message}');
+   			$('#mpbx_main_numbers_msg').attr('style','display:block');
+   			return false;
+   		}
+   	});
+   	$('#billing_cycle_day').blur(function(){
+   		if ($('#billing_cycle_day').val()*1==$('#billing_cycle_day').val()){
+   			$('#billing_cycle_day_msg').html('');
+   			$('#billing_cycle_day_msg').attr('style','display:none');
+   		}else{
+   			$('#billing_cycle_day_msg').html('${n.i18n.company_information_billing_cycle_day} ${n.i18n.crud_is_number_message}');
+   			$('#billing_cycle_day_msg').attr('style','display:block');
+   			return false;
+   		}
+   	});
+   });
+   $(document).ready(function(){
+   });
+</script>

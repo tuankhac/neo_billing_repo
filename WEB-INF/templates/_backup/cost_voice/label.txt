@@ -1,0 +1,10 @@
+cost_voice_id=ID
+cost_voice_name=NAME
+cost_voice_from_minute=FROM_MINUTE
+cost_voice_to_minute=TO_MINUTE
+cost_voice_price=PRICE
+cost_voice_group_id=GROUP_ID
+cost_voice_free=FREE
+cost_voice_note=NOTE
+cost_voice_from_date=FROM_DATE
+cost_voice_to_date=TO_DATE

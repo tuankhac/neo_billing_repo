@@ -1,0 +1,22 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.cost_voice_group_group_id}</th>
+		<th align=center>${n.i18n.cost_voice_group_group_name}</th>
+		<th align=center>${n.i18n.cost_voice_group_note}</th>
+	</tr>
+	#set ($list = $u.ref("crud_search_cost_voice_group_service","default",["$!{group_id}","$!{group_name}","$!{note}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],7) )
+	#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="cost_voice_group_rad"></td>
+		<td align=center name='group_id'>$!i["GROUP_ID"]</td>
+		<td align=left name='group_name'>$!i["GROUP_NAME"]</td>
+		<td align=left name='note'>$!i["NOTE"]</td>
+	</tr>
+	#end
+</table>
+<script>
+	$('#ajax_cost_voice_group :radio').change(function(){	
+		$('#ajax_cost_voice_group :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

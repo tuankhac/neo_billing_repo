@@ -1,0 +1,196 @@
+<table id="company_information" class='table table-condensed'>
+    <tr>
+        <th colspan='4'><b>${n.i18n.crud_search_button_message.toUpperCase()}</b></th>
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="company_id_label">${n.i18n.company_information_company_id}</td>
+        <td>
+            <input type="number" class="form-control" name="company_id" id="company_id"><span id="company_id_msg"></span>
+        </td>
+        <td title="${n.i18n.crud_valid_length_prefix} 1000 ${n.i18n.crud_valid_length_postfix}" id="company_name_label">${n.i18n.company_information_company_name}</td>
+        <td>
+            <input type="text" class="form-control" name="company_name" id="company_name"><span id="company_name_msg"></span>
+        </td>
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="mvpn_users_label">${n.i18n.company_information_mvpn_users}</td>
+        <td>
+            <input type="number" class="form-control" name="mvpn_users" id="mvpn_users"><span id="mvpn_users_msg"></span>
+        </td>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="mpbx_users_label">${n.i18n.company_information_mpbx_users}</td>
+        <td>
+            <input type="number" class="form-control" name="mpbx_users" id="mpbx_users"><span id="mpbx_users_msg"></span>
+        </td>
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="conference_users_label">${n.i18n.company_information_conference_users}</td>
+        <td>
+            <input type="number" class="form-control" name="conference_users" id="conference_users"><span id="conference_users_msg"></span>
+        </td>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="mpbx_main_numbers_label">${n.i18n.company_information_mpbx_main_numbers}</td>
+        <td>
+            <input type="number" class="form-control" name="mpbx_main_numbers" id="mpbx_main_numbers"><span id="mpbx_main_numbers_msg"></span>
+        </td>
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="billing_cycle_day_label">${n.i18n.company_information_billing_cycle_day}</td>
+        <td>
+            <input type="number" class="form-control" name="billing_cycle_day" id="billing_cycle_day"><span id="billing_cycle_day_msg"></span>
+        </td>
+        <td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="created_label">${n.i18n.company_information_created}</td>
+        <td>
+            <input type="text" class="form-control" name="created" id="created" placeholder="${n.i18n.format_ngay_tao_doanh_nghiep}"><span id="created_msg"></span>
+        </td>
+    </tr>
+    <tr id='control'>
+        <td colspan='4' align='center'>
+            <font id="result"></font>
+            <button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp; <button class="btn btn-primary" name="goNew" id="goNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message} &gt;</button>&nbsp;
+            <button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+            <button class="btn btn-primary" name="goEdit" id="goEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message} &gt;</button>&nbsp;
+        </td>
+    </tr>
+</table>
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div>
+        <div id="div_page_section2" class=""></div>
+    </div>
+</section>
+<script type="text/javascript">
+    var record_per_page = 20,
+        page = 1,
+        nor = 0;
+    var objPage = new pageTemplates('', 'div_page_section2', 'pClick', 'onGetData');
+    objPage.setRecPerPage(record_per_page);
+    objPage.setTypeTemplate('BOOTSTRAP');
+    $(function() {
+        $('#doSearch').click(function() {
+            $.ajax({
+                url: 'crud_exec.jsp?crud_type=com_info/ajax_get_nop_nor.html' + getParams(page, record_per_page),
+                success: function(data) {
+                    eval('data=' + data);
+                    nor = data.NOR * 1;
+                    $('#data-list').html(data);
+                    $('#result').html('');
+                    onStartSearch(data.NOR);
+                }
+            });
+        });
+        $('#doSearch').click();
+        $('#goNew').click(function() {
+            window.location.href = 'crud.jsp?crud_type=com_info/new.html';
+        });
+        $('#goEdit').click(function() {
+            if ($(':radio:checked').parent().parent().children("[name='company_id']").length >= 1) {
+                window.location.href = 'crud.jsp?crud_type=com_info/edit.html&company_id=' + $(':radio:checked').parent().parent().children("[name='company_id']").text();
+            } else {
+                alert('${n.i18n.crud_alert_select_one}');
+            }
+        });
+        $('#goDelete').click(function() {
+            if ($(':radio:checked').parent().parent().children("[name='company_id']").length >= 1) {
+                window.location.href = 'crud.jsp?crud_type=com_info/delete.html&company_id=' + $(':radio:checked').parent().parent().children("[name='company_id']").text();
+            } else {
+                alert('${n.i18n.crud_alert_select_one}');
+            }
+        });
+        $('#company_id').blur(function() {
+            if ($('#company_id').val() * 1 == $('#company_id').val()) {
+                $('#company_id_msg').html('');
+                $('#company_id_msg').attr('style', 'display:none');
+            } else {
+                $('#company_id_msg').html('${n.i18n.company_information_company_id} ${n.i18n.crud_is_number_message}');
+                $('#company_id_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+        $('#mvpn_users').blur(function() {
+            if ($('#mvpn_users').val() * 1 == $('#mvpn_users').val()) {
+                $('#mvpn_users_msg').html('');
+                $('#mvpn_users_msg').attr('style', 'display:none');
+            } else {
+                $('#mvpn_users_msg').html('${n.i18n.company_information_mvpn_users} ${n.i18n.crud_is_number_message}');
+                $('#mvpn_users_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+        $('#mpbx_users').blur(function() {
+            if ($('#mpbx_users').val() * 1 == $('#mpbx_users').val()) {
+                $('#mpbx_users_msg').html('');
+                $('#mpbx_users_msg').attr('style', 'display:none');
+            } else {
+                $('#mpbx_users_msg').html('${n.i18n.company_information_mpbx_users} ${n.i18n.crud_is_number_message}');
+                $('#mpbx_users_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+        $('#conference_users').blur(function() {
+            if ($('#conference_users').val() * 1 == $('#conference_users').val()) {
+                $('#conference_users_msg').html('');
+                $('#conference_users_msg').attr('style', 'display:none');
+            } else {
+                $('#conference_users_msg').html('${n.i18n.company_information_conference_users} ${n.i18n.crud_is_number_message}');
+                $('#conference_users_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+        $('#mpbx_main_numbers').blur(function() {
+            if ($('#mpbx_main_numbers').val() * 1 == $('#mpbx_main_numbers').val()) {
+                $('#mpbx_main_numbers_msg').html('');
+                $('#mpbx_main_numbers_msg').attr('style', 'display:none');
+            } else {
+                $('#mpbx_main_numbers_msg').html('${n.i18n.company_information_mpbx_main_numbers} ${n.i18n.crud_is_number_message}');
+                $('#mpbx_main_numbers_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+        $('#billing_cycle_day').blur(function() {
+            if ($('#billing_cycle_day').val() * 1 == $('#billing_cycle_day').val()) {
+                $('#billing_cycle_day_msg').html('');
+                $('#billing_cycle_day_msg').attr('style', 'display:none');
+            } else {
+                $('#billing_cycle_day_msg').html('${n.i18n.company_information_billing_cycle_day} ${n.i18n.crud_is_number_message}');
+                $('#billing_cycle_day_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+    });
+
+    function pClick(ps_page_id, ps_rec_per_page) {
+        objPage.setCurrentPage(ps_page_id);
+        objPage.setRecPerPage(ps_rec_per_page);
+        objPage.returnDataCount(objPage.getTotalRec());
+    }
+    //Ham nay tu dong duoc goi sau khi click vao cac so...:
+    function onGetData(page, size) {
+        $.ajax({
+            url: 'crud_exec.jsp?crud_type=com_info/ajax_index.html' + getParams(page, record_per_page),
+            timeout: 1000,
+            success: function(data) {
+                if (data != '') {
+                    $('#data-list').html(data);
+                    $('#result').html('');
+                }
+                if (nor == 0 && data != '') {
+                    $('#result').html('Không có d? li?u!');
+                }
+            }
+        });
+    }
+    //Ham tra ve chuoi parameters, truyen vao ajax de lay nop, nor va du lieu hien thi
+    function getParams(page, record_per_page) {
+        var exec = '&record_per_page=' + record_per_page + '&page_index=' + page + '&company_id=' + $('#company_id').val() + '&company_name=' + $('#company_name').val() + '&mvpn_users=' + $('#mvpn_users').val() + '&mpbx_users=' + $('#mpbx_users').val() + '&conference_users=' + $('#conference_users').val() + '&mpbx_main_numbers=' + $('#mpbx_main_numbers').val() + '&billing_cycle_day=' + $('#billing_cycle_day').val() + '&created='+$('#created').val() ;
+        return exec;
+    }
+
+    function onStartSearch(total) {
+        objPage.setCurrentPage(1);
+        objPage.returnDataCount(total);
+    }
+
+    $(document).ready(function() {
+        //$("#from_date").datepicker().datepicker("setDate", new Date(today.getTime() - 120*24*60*60*1000));
+        //$("#from_date").datepicker().datepicker("setDate", today);
+    });
+</script>

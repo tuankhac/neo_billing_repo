@@ -1,0 +1,51 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th style="text-align:center;">${n.i18n.promo_info_promo_id}</th>
+		<th style="text-align:center;">${n.i18n.promo_info_ten_htkm}</th>
+		<th style="text-align:center;">${n.i18n.promo_info_kmht_id}</th>
+		<th style="text-align:center;">${n.i18n.promo_info_loai_tb}</th>
+		<th style="text-align:center;">${n.i18n.promo_info_period}</th>
+		<th style="text-align:center;">${n.i18n.promo_info_promo_discount}</th>
+		
+		<!--
+		<th style="text-align:center;">${n.i18n.promo_info_phi_dichvu}</th>
+		<th style="text-align:center;">${n.i18n.promo_info_started_date}</th>
+		<th style="text-align:center;">${n.i18n.promo_info_end_date}</th>
+		<th style="text-align:center;">${n.i18n.promo_info_noimang}</th>
+		<th style="text-align:center;">${n.i18n.promo_info_time_promo}</th>
+		<th style="text-align:center;">${n.i18n.promo_info_sms_promo}</th>
+		<th style="text-align:center;">${n.i18n.promo_info_data_promo}</th>
+	-->
+</tr>
+#set ($list = $u.ref("crud_search_promo_info_service","default",["$!{kmht_id}","$!{promo_id}","$!{ten_htkm}","$!{period}",
+"$!{promo_discount}","$!{started_date}","$!{end_date}","$!{noimang}","$!{loai_tb}","$!{record_per_page}","$!{page_index}",
+"$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13) )
+#foreach ($i in $list)
+<tr>
+	<td width='22px' style="text-align:center;"><input type="radio" id="rad$i['ID']" name="promo_info_rad"></td>
+	<td style="text-align:center;" name='promo_id'>$!i["PROMO_ID"].trim()</td>
+	<td style="text-align:center;"name='ten_htkm'>$!i["TEN_HTKM"].trim()</td>
+	<td style="text-align:center;"name='kmht_id'>$!i["KMHT_ID"].trim()</td>
+	<td style="text-align:center;"name='loai_tb'>$!i["LOAI_TB"].trim()</td>
+	<td style="text-align:center;" name='loaiht_id'>$!i["PERIOD"].trim()</td>
+	<td style="text-align:center;" name='loaiht_id'>$!i["PROMO_DISCOUNT"].trim()</td>
+	
+		<!--
+		<td style="text-align:center;" name='phi_dichvu'>$!i["PHI_DICHVU"]</td>
+		<td style="text-align:center;" name='started_date'>$!i["STARTED_DATE"]</td>
+		<td style="text-align:center;" name='end_date'>$!i["END_DATE"]</td>
+		<td style="text-align:center;" name='noimang'>$!i["NOIMANG"]</td>
+		<td style="text-align:center;"name='time_promo'>$!i["TIME_PROMO"]</td>
+		<td style="text-align:center;"name='time_promo_period'>$!i["TIME_PROMO_PERIOD"]</td>
+		<td style="text-align:center;" name='sms_promo'>$!i["SMS_PROMO"]</td>
+		<td style="text-align:center;"name='data_promo'>$!i["DATA_PROMO"]</td>
+	-->
+</tr>
+#end
+</table>
+<script>
+	$('#ajax_promo_info :radio').change(function(){	
+		$('#ajax_promo_info :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

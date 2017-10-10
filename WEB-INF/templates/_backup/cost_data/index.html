@@ -1,0 +1,131 @@
+﻿<table id="cost_data" class='table table-condensed'>
+   <tr>
+      <th colspan='4'><b>${n.i18n.crud_search_button_message.toUpperCase()}</b></th>
+   </tr>
+   <tr>
+      <td title="" id="id_label">${n.i18n.cost_data_id}</td>
+      <td>
+         <input type="number" min="0" class="form-control" name="id" id="id"><span id="id_msg"></span>
+      </td>
+      <td title="" id="name_label">${n.i18n.cost_data_name}</td>
+      <td>
+         <input  type="text" class="form-control" name="name" id="name"><span id="name_msg"></span>
+      </td>
+   </tr>
+   <tr>
+      <td title="" id="data_label">${n.i18n.cost_data_data}</td>
+      <td>
+         <input type="number" min="0" class="form-control" name="data" id="data"><span id="data_msg"></span>
+      </td>
+      <td title="" id="price_label">${n.i18n.cost_data_price}</td>
+      <td>
+         <input type="number" min="0" class="form-control" name="price" id="price"><span id="price_msg"></span>
+      </td>
+   </tr>
+   <tr>
+      <td title="" id="note_label">${n.i18n.cost_data_note}</td>
+      <td>
+         <input  type="text" class="form-control" name="note" id="note"><span id="note_msg"></span>
+      </td>
+      <td title="" id="from_date_label">${n.i18n.cost_data_from_date}</td>
+      <td>
+         <input  type="date" class="form-control" name="from_date" id="from_date"><span id="from_date_msg"></span>
+      </td>
+   </tr>
+   <tr>
+      <td title="" id="to_date_label">${n.i18n.cost_data_to_date}</td>
+      <td>
+         <input  type="date" class="form-control" name="to_date" id="to_date"><span id="to_date_msg"></span>
+      </td>
+   </tr>
+   <tr id='control'>
+      <td colspan='4' align='center'><font id="result"></font>
+         <button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;			<button class="btn btn-primary" name="goNew" id="goNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message} &gt;</button>&nbsp;
+         <button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+         <button class="btn btn-primary" name="goEdit" id="goEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message} &gt;</button>&nbsp;
+      </td>
+   </tr>
+</table>
+<section class="content">
+   <div class="box box-primary">
+      <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div>
+      <div id="div_page_section2" class=""></div>
+   </div>
+</section>
+<script type="text/javascript">
+   var record_per_page=20, page=1, nor=0;
+   var objPage=new pageTemplates('','div_page_section2','pClick','onGetData');
+   objPage.setRecPerPage(record_per_page);
+   objPage.setTypeTemplate('BOOTSTRAP'); 
+   $(function(){
+   	$('#doSearch').click(function(){
+   		$.ajax({
+   			url: 'crud_exec.jsp?crud_type=cost_data/ajax_get_nop_nor.html'+getParams(page,record_per_page),
+   			success: function(data){ 
+   				eval('data='+data);
+   				nor = data.NOR*1;
+   				$('#data-list').html(data);
+   				$('#result').html('');
+   				onStartSearch(data.NOR);
+   			}
+   		});
+   	});
+      $('#doSearch').click();
+      $('#goNew').click(function(){
+       window.location.href='crud.jsp?crud_type=cost_data/new.html';
+    });
+      $('#goEdit').click(function(){
+       if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+         window.location.href='crud.jsp?crud_type=cost_data/edit.html&id='+$(':radio:checked').parent().parent().children("[name='id']").text();
+      }else{
+         alert('${n.i18n.crud_alert_select_one}');
+      }
+   });
+      $('#goDelete').click(function(){
+       if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+         window.location.href='crud.jsp?crud_type=cost_data/delete.html&id='+$(':radio:checked').parent().parent().children("[name='id']").text();
+      }else{
+         alert('${n.i18n.crud_alert_select_one}');
+      }
+   });
+   });
+   
+   function pClick(ps_page_id,ps_rec_per_page) {
+   	objPage.setCurrentPage(ps_page_id);
+   	objPage.setRecPerPage(ps_rec_per_page);
+   	objPage.returnDataCount(objPage.getTotalRec());
+   }
+   //Ham nay tu dong duoc goi sau khi click vao cac so...:
+   function onGetData(page, size){
+   	$.ajax({
+   		url: 'crud_exec.jsp?crud_type=cost_data/ajax_index.html'+getParams(page,record_per_page),
+   		timeout: 1000,
+   		success: function(data){ 
+   			if(data!=''){
+   				$('#data-list').html(data);
+   				$('#result').html('');
+   			}
+   			if(nor==0 && data!=''){
+   				$('#result').html('Không có dữ liệu!');
+   			}
+   		}
+   	});
+   }
+   //Ham tra ve chuoi parameters, truyen vao ajax de lay nop, nor va du lieu hien thi
+   function getParams(page,record_per_page){
+   	var exec='&record_per_page='+record_per_page+'&page_index='+page+'&id='+$('#id').val()+'&name='+$('#name').val()+'&data='+$('#data').val()+'&price='+$('#price').val()+'&note='+$('#note').val()+'&from_date='+$('#from_date').val()+'&to_date='+$('#to_date').val();
+   	return exec;
+   }
+   function onStartSearch(total){
+   	objPage.setCurrentPage(1);
+   	objPage.returnDataCount(total);
+   }
+   
+   $(document).ready(function(){
+    //var today = new Date();
+    //$('#from_date').datepicker({format:"yyyy-mm-dd"});
+    //$('#to_date').datepicker({format:"yyyy-mm-dd"});
+	   //$("#from_date").datepicker().datepicker("setDate", new Date(today.getTime() - 120*24*60*60*1000));
+	   //$("#from_date").datepicker().datepicker("setDate", today);
+   });
+</script>

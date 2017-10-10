@@ -1,0 +1,212 @@
+#set ($v = $u.ref("crud_search_cost_voice_exp_service","default",["$!{id}","$!{name}","$!{from_minute}","$!{to_minute}","$!{price}","$!{group_id}","$!{free}","$!{company_id}","$!{from_date}","$!{to_date}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],14)[0] )
+<table id="cost_voice_exp" class='table table-condensed'>
+    <tr>
+        <th colspan='4'><b>${n.i18n.crud_edit_button_message.toUpperCase()}</b></th>
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.cost_voice_exp_id}</td>
+        <td><input type="number" min="0" class="form-control" readonly value='$!v["ID"]' name="id" id="id"><span id="id_msg"></span></td>
+        <td title="${n.i18n.crud_valid_length_prefix} 300 ${n.i18n.crud_valid_length_postfix}" id="name_label">${n.i18n.cost_voice_exp_name}</td>
+        <td><input type="text" class="form-control" value='$!v["NAME"]' name="name" id="name"><span id="name_msg"></span></td>
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="from_minute_label">${n.i18n.cost_voice_exp_from_minute}</td>
+        <td><input type="number" min="0" class="form-control" value='$!v["FROM_MINUTE"]' name="from_minute" id="from_minute"><span id="from_minute_msg"></span></td>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="to_minute_label">${n.i18n.cost_voice_exp_to_minute}</td>
+        <td><input type="number" min="0" class="form-control" value='$!v["TO_MINUTE"]' name="to_minute" id="to_minute"><span id="to_minute_msg"></span></td>
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 300 ${n.i18n.crud_valid_length_postfix}" id="company_id_label">${n.i18n.cost_voice_exp_company_id}</td>
+        <td><input type="text" class="form-control" name="company_id" id="company_id" value='$!v["COMPANY_ID"]'><span id="company_id_msg"></span></td>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="price_label">${n.i18n.cost_voice_exp_price}</td>
+        <td><input type="number" min="0" class="form-control" value='$!v["PRICE"]' name="price" id="price" placeholder="${n.i18n.tinh_theo_dong}"><span id="price_msg"></span></td>
+
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="from_date_label">${n.i18n.cost_voice_exp_from_date}</td>
+        <td><input type="text" class="form-control" value='$!v["FROM_DATE"]' name="from_date" id="from_date"><span id="from_date_msg"></span></td>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="to_date_label">${n.i18n.cost_voice_exp_to_date}</td>
+        <td><input type="text" class="form-control" value='$!v["TO_DATE"]' name="to_date" id="to_date"><span id="to_date_msg"></span></td>
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 300 ${n.i18n.crud_valid_length_postfix}" id="note_label">${n.i18n.cost_voice_exp_note}</td>
+        <td><input type="text" class="form-control" value='$!v["NOTE"]' name="note" id="note"><span id="note_msg"></span></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr id='control'>
+        <td colspan='4' align='center'>
+            <font id="result"></font>
+            <button class="btn btn-primary" name="doEdit" id="doEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message}</button>&nbsp;
+            <button class="btn btn-primary" name="doReset" id="doReset"><i class="fa fa-reply"></i> ${n.i18n.crud_reset_button_message}</button>&nbsp;
+            <button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    var check_day = 1;
+    var check_mount = 1;
+    $(function() {
+        var orginData = {
+            id: '$!v["ID"]',
+            name: '$!v["NAME"]',
+            from_minute: '$!v["FROM_MINUTE"]',
+            company_id: '$!v["COMPANY_ID"]',
+            to_minute: '$!v["TO_MINUTE"]',
+            price: '$!v["PRICE"]',
+            group_id: '$!v["GROUP_ID"]',
+            free: '$!v["FREE"]',
+            note: '$!v["NOTE"]',
+            from_date: '$!v["FROM_DATE"]',
+            to_date: '$!v["TO_DATE"]'
+        };
+        $('#doEdit').click(function() {
+            if (!confirm('${n.i18n.crud_confirm_message}')) {
+                return;
+            }
+
+            if (check_day == 0 || check_mount == 0) {
+                alert('${n.i18n.need_to_check_info_again}');
+                return;
+            }
+
+            var exec = '&id=' + $('#id').val() + '&name=' + $('#name').val() + '&from_minute=' + $('#from_minute').val() + '&to_minute=' + $('#to_minute').val() + '&price=' + $('#price').val() + '&group_id=' + $('#group_id').val() + '&free=' + $('#free').val() + '&note=' + $('#note').val() + '&from_date=' + $('#from_date').val() + '&to_date=' + $('#to_date').val() + '&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+            $('#result').html('${n.i18n.crud_process_message}');
+            $.ajax({
+                url: 'crud_exec.jsp?crud_type=cost_voice_exp/edit_exec.html' + exec,
+                success: function(data) {
+                    if (data == "1.0") {
+                        $('#result').html("${n.i18n.crud_edit_message}");
+                    } else {
+                        $('#result').html(data);
+                    }
+                }
+            });
+        });
+        $('#doReset').click(function() {
+            $("input").each(function() {
+                $(this).val(orginData[$(this).attr('id')])
+            });
+            $("table#cost_voice_exp").find("span").each(function() {
+                $(this).text('')
+            });
+            $("textarea").each(function() {
+                $(this).val(orginData[$(this).attr('id')])
+            });
+            $("select").each(function() {
+                $(this).attr('selectedIndex', orginData[$(this).attr('id')]);
+            });
+        });
+        $('#goSearch').click(function() {
+            window.location.href = 'crud.jsp?crud_type=cost_voice_exp/index.html';
+        });
+        $('#id').blur(function() {
+            if ($('#id').val() * 1 == $('#id').val()) {
+                $('#id_msg').html('');
+                $('#id_msg').attr('style', 'display:none');
+            } else {
+                $('#id_msg').html('${n.i18n.cost_voice_exp_id} ${n.i18n.crud_is_number_message}');
+                $('#id_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+
+        $('#from_minute').change(function() {
+            if ($('#from_minute').val() != "" && $('#to_minute').val() != "") {
+                if ($('#from_minute').val() * 1 < $('#to_minute').val() * 1) {
+                    $('#from_minute_msg').html('');
+                    $('#to_minute_msg').html('');
+                    check_mount = 1;
+                } else {
+                    $('#from_minute_msg').html("${n.i18n.invalid_from_to_minute}");
+                    check_mount = 0;
+                    return false;
+                }
+            }
+        });
+        $('#to_minute').change(function() {
+            if ($('#from_minute').val() != "" && $('#to_minute').val() != "") {
+                if ($('#from_minute').val() * 1 < $('#to_minute').val() * 1) {
+                    $('#from_minute_msg').html('');
+                    $('#to_minute_msg').html('');
+                    check_mount = 1;
+                } else {
+                    $('#to_minute_msg').html("${n.i18n.invalid_to_from_minute}");
+                    check_mount = 0;
+                    return false;
+                }
+            }
+        });
+
+        $('#price').blur(function() {
+            if ($('#price').val() * 1 == $('#price').val()) {
+                $('#price_msg').html('');
+                $('#price_msg').attr('style', 'display:none');
+            } else {
+                $('#price_msg').html('${n.i18n.cost_voice_exp_price} ${n.i18n.crud_is_number_message}');
+                $('#price_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+        $('#group_id').blur(function() {
+            if ($('#group_id').val() * 1 == $('#group_id').val()) {
+                $('#group_id_msg').html('');
+                $('#group_id_msg').attr('style', 'display:none');
+            } else {
+                $('#group_id_msg').html('${n.i18n.cost_voice_exp_group_id} ${n.i18n.crud_is_number_message}');
+                $('#group_id_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+        $('#free').blur(function() {
+            if ($('#free').val() * 1 == $('#free').val()) {
+                $('#free_msg').html('');
+                $('#free_msg').attr('style', 'display:none');
+            } else {
+                $('#free_msg').html('${n.i18n.cost_voice_exp_free} ${n.i18n.crud_is_number_message}');
+                $('#free_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+
+        $('#from_date').change(function() {
+            if ($('#from_date').val() != "" && $('#to_date').val() != "") {
+                var begin_date = new Date($('#from_date').val());
+                var end_date = new Date($('#to_date').val());
+                if (begin_date < end_date) {
+                    $('#from_date_msg').html('');
+                    $('#to_date_msg').html('');
+                    check_day = 1;
+                } else {
+                    $('#from_date_msg').html("${n.i18n.invalid_begin_end_date}");
+                    check_day = 0;
+                    return false;
+                }
+            }
+        });
+
+        $('#to_date').change(function() {
+            if ($('#from_date').val() != "" && $('#to_date').val() != "") {
+                var begin_date = new Date($('#from_date').val());
+                var end_date = new Date($('#to_date').val());
+                if (end_date > begin_date) {
+                    $('#from_date_msg').html('');
+                    $('#to_date_msg').html('');
+                    check_day = 1;
+                } else {
+                    $('#to_date_msg').html("${n.i18n.invalid_end_begin_date}");
+                    check_day = 0;
+                    return false;
+                }
+            }
+        });
+    });
+    $(document).ready(function() {
+        $('#from_date').datepicker({
+            format: "yyyy-mm-dd"
+        });
+        $('#to_date').datepicker({
+            format: "yyyy-mm-dd"
+        });
+    });
+</script>

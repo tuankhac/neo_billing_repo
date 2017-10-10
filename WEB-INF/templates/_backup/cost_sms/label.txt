@@ -1,0 +1,6 @@
+cost_sms_id=ID
+cost_sms_name=NAME
+cost_sms_price=PRICE
+cost_sms_note=NOTE
+cost_sms_from_date=FROM_DATE
+cost_sms_to_date=TO_DATE

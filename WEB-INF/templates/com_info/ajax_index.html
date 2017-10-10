@@ -1,0 +1,32 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.company_information_company_id}</th>
+		<th align=center>${n.i18n.company_information_company_name}</th>
+		<th align=center>${n.i18n.company_information_mvpn_users}</th>
+		<th align=center>${n.i18n.company_information_mpbx_users}</th>
+		<th align=center>${n.i18n.company_information_conference_users}</th>
+		<th align=center>${n.i18n.company_information_mpbx_main_numbers}</th>
+		<th align=center>${n.i18n.company_information_billing_cycle_day}</th>
+		<th align=center>${n.i18n.company_information_created}</th>
+	</tr>
+	#set ($list = $u.ref("crud_search_company_information_service","default",["$!{company_id}","$!{company_name}","$!{mvpn_users}","$!{mpbx_users}","$!{conference_users}","$!{mpbx_main_numbers}","$!{billing_cycle_day}","$!{created}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],12) )
+	#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['COMPANY_ID']" name="company_information_rad"></td>
+		<td align=center name='company_id'>$!i["COMPANY_ID"]</td>
+		<td align=left name='company_name'>$!i["COMPANY_NAME"]</td>
+		<td align=center name='mvpn_users'>$!i["MVPN_USERS"]</td>
+		<td align=center name='mpbx_users'>$!i["MPBX_USERS"]</td>
+		<td align=center name='conference_users'>$!i["CONFERENCE_USERS"]</td>
+		<td align=center name='mpbx_main_numbers'>$!i["MPBX_MAIN_NUMBERS"]</td>
+		<td align=center name='billing_cycle_day'>$!i["BILLING_CYCLE_DAY"]</td>
+		<td align=left name='created'>$!i["CREATED"]</td>
+	</tr>
+	#end
+</table>
+<script>
+	$('#ajax_company_information :radio').change(function(){	
+		$('#ajax_company_information :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

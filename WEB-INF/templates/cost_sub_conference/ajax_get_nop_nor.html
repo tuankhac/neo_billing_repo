@@ -1,0 +1,4 @@
+#set ($list = $u.ref("crud_search_cost_sub_conference_service","default",["$!{id}","$!{name}","$!{from_amount}","$!{to_amount}","$!{price}","$!{note}","$!{from_date}","$!{to_date}","$!{record_per_page}","-1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],12) )
+{"NOP":"$!list[0]['NOP']'", "NOR":"$!list[0]['NOR']"}
+ 
+ 

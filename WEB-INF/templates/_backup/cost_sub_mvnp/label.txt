@@ -1,0 +1,8 @@
+cost_sub_mvnp_id=ID
+cost_sub_mvnp_name=NAME
+cost_sub_mvnp_from_amount=FROM_AMOUNT
+cost_sub_mvnp_to_amount=TO_AMOUNT
+cost_sub_mvnp_price=PRICE
+cost_sub_mvnp_note=NOTE
+cost_sub_mvnp_from_date=FROM_DATE
+cost_sub_mvnp_to_date=TO_DATE

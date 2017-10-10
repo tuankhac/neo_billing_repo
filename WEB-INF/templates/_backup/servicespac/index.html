@@ -1,0 +1,47 @@
+﻿<table id="phieuhuys" class='table table-condensed'>
+   <tr>
+      <th colspan='4'><h4><b>BÁO CÁO DOANH THU THEO GÓI DỊCH VỤ</b></h4></th>
+   </tr>
+   <tr>
+      <td width=10% title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_start_date}</td>
+      <td>
+         <input  type="text" class="form-control" name="tungay" id="tungay"><span id="tungay_msg"></span>
+      </td>
+      <td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_end_date}</td>
+      <td>
+         <input  type="text" class="form-control" name="denngay" id="denngay"><span id="denngay_msg"></span>
+      </td>
+   </tr>
+   <tr>
+      <td width=10% title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_service_pac}</td>
+      <td>
+         <input  type="text" class="form-control" name="service_pac" id="service_pac"><span id="service_pac_msg"></span>
+      </td>
+   </tr>
+   <tr id='control'>
+      <td colspan='4' align='center'><font id="result"></font>
+         <button class="btn btn-primary" name="cmdPrint" id="cmdPrint" onclick="doExportReportPDF()"><i class="fa fa-print"></i> ${n.i18n.curd_report_print} &gt;</button>&nbsp;	
+         <button class="btn btn-primary"  onclick="doExportReportXLS()"><i class="fa fa-print"></i> ${n.i18n.curd_report_excel_output} &gt;</button>&nbsp;
+      </td>
+   </tr>
+</table>
+
+<script type="text/javascript">
+   $(document).ready(function(){
+   $('#tungay').datepicker({format:"dd/mm/yyyy"}).datepicker("setDate",new Date());
+   $('#denngay').datepicker({format:"dd/mm/yyyy"}).datepicker("setDate",new Date());
+   });
+   function doExportReportPDF(){
+   var jpPath = "${pathroot}/WEB-INF/templates/jasper/";
+   var s_ = window.location.protocol+"//"+window.location.host
+   	+"/report/?jasperFile=jasper/report_tiennop&jasperExportType=pdf&IMAGE_PATH="+jpPath+"&TU_NGAY="+$('#tungay').val()+"&DEN_NGAY="+$('#denngay').val()+"&DON_VI="+$('#donviql_id').val()+"&MA_BC="+$('#mabc_id').val()+"&QUAYTHU_ID="+$('#quaythu_id').val()+"&NGUOI_HUY="+$('#nguoi_huy').val()+'&MA_TINH=${province}'+"&DUONG_THU="+$('#duong_thu').val();
+   window.open(s_);
+   }
+   function doExportReportXLS(){
+   var jpPath = "${pathroot}/WEB-INF/templates/jasper/";
+   var s_ = window.location.protocol+"//"+window.location.host
+   	+"/report/?jasperFile=jasper/report_tiennop_xls&jasperExportType=xls&IMAGE_PATH="+jpPath+"&TU_NGAY="+$('#tungay').val()+"&DEN_NGAY="+$('#denngay').val()+"&DON_VI="+$('#donviql_id').val()+"&MA_BC="+$('#mabc_id').val()+"&QUAYTHU_ID="+$('#quaythu_id').val()+"&NGUOI_HUY="+$('#nguoi_huy').val()+'&MA_TINH=${province}'+"&DUONG_THU="+$('#duong_thu').val();
+   window.open(s_);
+   }
+   
+</script>

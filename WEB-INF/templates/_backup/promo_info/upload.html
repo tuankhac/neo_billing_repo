@@ -1,0 +1,270 @@
+﻿<html>
+<style type="text/css">
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+}
+
+.center {
+	z-index: 1000;
+	margin: 200px auto;
+	width: 140px;
+	border-radius: 10px;
+	filter: alpha(opacity = 100);
+	opacity: 1;
+	-moz-opacity: 1;
+}
+
+.center img {
+	height: 100px;
+	width: 100px;
+}
+
+body.loading {
+	overflow: hidden;
+}
+
+body.loading .modal {
+	display: block;
+}
+</style>
+<div class="nav-tabs-custom">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#tab_1" data-toggle="tab"
+			aria-expanded="true">
+				<h4>${n.i18n.upload_promo_tab}</h4>
+		</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab_1">
+			<div class="box-body no-padding">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="box box box-primary">
+							<div class="box-header">
+								<h3 class="box-title">${n.i18n.upload_data}</h3>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<form id="form_tab1">
+									<div class="row">
+									<div class="col-md-3">${n.i18n.promo_info_ht}</div>
+									<div class="col-md-8">
+										<select class="form-control" name="hinh_thuc" id="hinh_thuc">
+											#set( $v = $u.qry("crud_get_info_config_upload","default",[""],0))
+											#foreach($i in $v)
+												<option value="$i['PROMO_ID']-$i['TEN_HTKM']-$i['LOAI_TB']-$i['PERIOD']">
+													$i['PROMO_ID'] - $i["TEN_HTKM"] - $i["LOAI_TB"] - $i["PERIOD"]
+												</option>
+											#end
+									   </select>
+									  </div>
+									  </div>
+								   <br>
+								   <div class="row">
+									<div class="col-md-3"></div>
+									<div class="col-md-5">
+									<div class="form-group">
+										<input type="file" id="promo_file" name="promo_file"
+											accept=".txt,.csv" data-input="false" data-icon="false"
+											data-buttonName="btn-primary"
+											data-buttonText="${i18n.l.file_upload}"
+											onchange="javascript:if(this.value!='') {$('#upload_btn').removeAttr('disabled');} 
+                              else {$('#upload_btn').attr('disabled','true');}" />
+										<p class="help-block">${n.i18n.support_format}</p>
+										<p id="pFileSize" style="color: red;"></p>
+									</div>
+									</div>
+									</div>
+								</form>
+								<div class="row">
+								<div class="col-md-12">
+								<button type="button" onclick="doImportData()"
+									class="btn btn-primary" id="upload_btn" disabled style="margin-left:50% !important;">Upload
+									file</button>
+									</div>
+									</div>
+							</div>
+						</div>
+						<!-- /.box -->
+					</div>
+					<div class="col-md-4">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">${n.i18n.info_upload_promo}</h3>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body" style="display: block;">
+								<div class="table-responsive">
+									<table class="table no-margin">
+										<thead>
+											<tr>
+												<th></th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>${n.i18n.upload_time}</td>
+												<td><span class="label label-success" id="upload_time">0</span></td>
+											</tr>
+											<tr>
+												<td>${n.i18n.sum_records}</td>
+												<td><span class="label label-success" id="sum_records">0</span></td>
+											</tr>
+											<tr>
+												<td>${n.i18n.fail_records}</td>
+												<td><span class="label label-success" id="fail_records">0</span></td>
+											</tr>
+											<tr></tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- /.table-responsive -->
+							</div>
+							<!-- /.box-body -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-body no-padding" id='data-list'
+				style="overflow: auto; margin: auto"></div>
+			<div id="div_page_section2" class=""></div>
+		</div>
+	</div>
+</div>
+<script>
+      $(document).on('change',"select",function(){
+      });
+      
+      var curr_id ="";
+      var record_per_page=100, page=1, nor=0;
+      var objPage=new pageTemplates('','div_page_section2','pClick','onGetData');
+      objPage.setRecPerPage(record_per_page);
+      objPage.setTypeTemplate('BOOTSTRAP');
+      
+      function doImportData(){
+      if($('#promo_file').val()=='') {
+      	alert('${n.i18n.crud_alert_select_one}');
+      	return;
+      }
+      	var formData = new FormData();
+      var file = $('#promo_file')[0].files[0];
+      var fullPath = document.getElementById('promo_file').value;
+      formData.append("user", "${request.userPrincipal.name}");
+      formData.append("user_ip", "$!{request.RemoteAddr}");
+      formData.append("file_attach", file);
+      var u = 'promo_upload/upload_process.jsp';
+      $.ajax({
+      	type : "POST",
+      	url : u,
+      	cache : false,
+      	enctype : 'multipart/form-data',
+      	data : formData,
+      	processData : false,
+      	contentType : false,	
+      	success : function(data) {
+      		eval('data='+data);
+      		if(data.RESULT=="OK"){
+      			curr_id = data.VALUE;
+				$("#upload_time").html(data.VALUE);
+				$("#sum_records").html(data.SUM);
+				var r_ = updateData();
+      			if(r_== "1"){
+					viewData();		
+				}else{
+					alert(updateData());
+				}
+				
+      			$("#download_btn").attr('disabled' , false);	
+      			$("#upload_data_btn").attr('disabled' , false);	
+      		}else{
+      			alert(data.VALUE);
+      			$("#download_btn").attr('disabled' , true);	
+      		}
+      		$("#upload_btn").attr('disabled' , false);
+      	},
+      	error: function (jqXHR, textStatus, errorThrown) {
+      		alert(jqXHR.responseText);
+      	}
+      });
+      } 
+	  function updateData(){
+		var r_ ;
+			$.ajax({
+			url: encodeURI('crud_exec.jsp?crud_type=promo_info/ajax_update.html'+getParams(-1,record_per_page)),
+			async:false,
+			success: function(data){ 
+				eval('data='+data);
+				r_ = data.RESULT;
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert(jqXHR.responseText);
+			}
+		  });
+		  return r_;
+	  }
+      function viewData(){
+      $.ajax({
+      	url: encodeURI('crud_exec.jsp?crud_type=promo_info/ajax_upload_nop_nor.html'+getParams(-1,record_per_page)),
+		async:false,
+      	success: function(data){ 
+      		eval('data='+data);
+			nor = data.NOR*1;
+            $('#data-list').html(data);
+            $('#result').html('');
+      		onStartSearch(data.NOR);
+      	},
+      	error: function (jqXHR, textStatus, errorThrown) {
+      		alert(jqXHR.responseText);
+      	}
+      });
+      }  
+   
+      function pClick(ps_page_id,ps_rec_per_page) {
+      objPage.setCurrentPage(ps_page_id);
+      objPage.setRecPerPage(ps_rec_per_page);
+      objPage.returnDataCount(objPage.getTotalRec());
+      }
+      //Ham nay tu dong duoc goi sau khi click vao cac so...:
+      function onGetData(page, size){
+      $.ajax({
+      	url: 'crud_exec.jsp?crud_type=promo_info/ajax_upload.html'+getParams(page,record_per_page),
+		async:false,
+      	timeout: 4000,
+      	success: function(data){ 
+      		if(data!=''){
+      			$('#data-list').html(data);
+      			$('#result').html('');
+      		}
+      		if(nor==0 && data!=''){
+      			$('#result').html('Không có dữ liệu!');
+      		}
+      	}
+      });
+      }
+      //Ham tra ve chuoi parameters, truyen vao ajax de lay nop, nor va du lieu hien thi
+      function getParams(page,record_per_page){
+		var strs = $("#hinh_thuc").val();
+		var params = strs.split("-");
+      var exec='&id_promo='+params[0]+'&hinhthuc='+params[2]+'&pmonth='+params[3]+'&log_ip=$!{request.RemoteAddr}&record_per_page='+record_per_page+'&page_index='+page+'&upload_id='+curr_id;
+      return exec;
+      }
+      function onStartSearch(total){
+      objPage.setCurrentPage(1);
+      objPage.returnDataCount(total);
+      }
+      $.ajaxSetup({
+      beforeSend: function () {
+         $(".modal").show();
+         console.log("show");
+      },
+      complete: function () {
+      	$(".modal").hide();
+      	console.log("hide");
+      }
+      });
+   </script>

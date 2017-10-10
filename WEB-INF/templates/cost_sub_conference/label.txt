@@ -1,0 +1,8 @@
+cost_sub_conference_id=ID
+cost_sub_conference_name=NAME
+cost_sub_conference_from_amount=FROM_AMOUNT
+cost_sub_conference_to_amount=TO_AMOUNT
+cost_sub_conference_price=PRICE
+cost_sub_conference_note=NOTE
+cost_sub_conference_from_date=FROM_DATE
+cost_sub_conference_to_date=TO_DATE

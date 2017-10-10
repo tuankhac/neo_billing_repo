@@ -1,0 +1,350 @@
+<head>
+    <link href="assets/bootstrap/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+    <script src="assets/bootstrap/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+    <script src="assets/bootstrap/plugins/autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
+    <link href="assets/bootstrap/plugins/autocomplete/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<br>
+<div>
+    <h4 class="box-title" style="margin-left:20px">${n.i18n.promo_infomation.toUpperCase()}</h4>
+</div>
+<br>
+<div class="container-fluid bg-3 text-center">
+    <div class="row">
+        <div class="col-sm-2">
+            <label title="${n.i18n.cost_name_label}" id="cost_name_label" align="left">${n.i18n.cost_name_label}</label>
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" name="cost_name_form" id="cost_name_form" placeholder="${n.i18n.cost_name_label}">
+            </input>
+        </div>
+        <div class="col-sm-2">
+            <label align="left">${n.i18n.promo_info_period}</label>
+        </div>
+        <div class="col-sm-4">
+            <!--<div id="getoption_period"></div>-->
+            <input class="form-control" name="period" id="period" placeholder="${n.i18n.format_period}"></input>
+            <span name="period_label" id="period_label"> </span>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container-fluid bg-3 text-center">
+    <div class="row">
+        <div class="col-sm-2">
+            <label title="${n.i18n.loai_tb_label}" id="loai_tb_label" align="left">${n.i18n.loai_tb_label}</label>
+        </div>
+        <div class="col-sm-4">
+            <select class="form-control" name="loai_tb" id="loai_tb">
+						<option value="">${n.i18n.crud_khong_chon}</option>
+						<option value="basicprice">${n.i18n.basicprice}</option>
+						<option value="bpx" >${n.i18n.bpx}</option>
+						<option value="conference" >${n.i18n.conference}</option>
+			<option value="all_synthetic" hidden >${n.i18n.all_synthetic}</option>
+				 </select>
+        </div>
+        <div class="col-sm-2">
+            <label title="${n.i18n.loai_ht_label}" id="loai_ht_label" align="left" style="padding-left:40px;">${n.i18n.loai_ht_label}</label>
+        </div>
+        <div class="col-sm-4">
+            <select class="form-control" name="loai_ht" id="loai_ht" onchange="getInfo_other()">
+						<option value="">${n.i18n.crud_khong_chon}</option>
+						<option value="voice">${n.i18n.option_cost_voice}</option>
+						<option value="sms" hidden>Cước SMS</option>
+						<option value="mms" hidden>Cước MMS</option>
+						<option value="data" >${n.i18n.option_cost_mobile_data}</option>
+			<option value="all_synthetic" hidden >${n.i18n.all_synthetic}</option>
+				 </select>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container-fluid bg-3 text-center">
+    <div class="row">
+        <div class="col-sm-2">
+            <label title="${n.i18n.cost_label}" id="cost_label" align="left">${n.i18n.cost_label}</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="number" min="0" class="form-control" name="cost_enjoy" id="cost_enjoy" placeholder="${n.i18n.currency_unit}" />
+        </div>
+    </div>
+</div>
+<!--
+	 <br>
+	 <div class="container-fluid bg-3 text-center">
+			<div class="row">
+				 <div class="col-sm-2">
+						<label align="left" >${n.i18n.begin_date}</label>
+				 </div>
+				 <div class="col-sm-3">
+						<input  type="date" value="" class="form-control" name="begin_date" id="begin_date">
+						<span name="begin_date_label" id="begin_date_label"> </span>
+				 </div>
+				 <div class="col-sm-2">
+						<label align="left" style ="padding-left:40px;" >${n.i18n.end_date}</label>
+				 </div>
+				 <div class="col-sm-3">
+						<input  type="date"  class="form-control" name="end_date" id="end_date">
+						<span name="end_date_label" id="end_date_label"> </span>
+				 </div>
+			</div>
+	 </div>
+	 <br>
+	 <div class="container-fluid bg-3 text-center">
+			<div class="row">
+				 <div class="col-sm-2">
+						<label title="${n.i18n.loaitb_label}" id="loaitb_label" align="left" pattern="[A-Z]+" required="'required'" >${n.i18n.loaitb_label}</label>
+				 </div>
+				 <div class="col-sm-3">
+						<select hidden class="form-control" name="loaitb" id="loaitb">
+							 <option value="">${n.i18n.crud_khong_chon}</option>
+							 <option value="prepaid">${n.i18n.prepaid}</option>
+							 <option value="postpaid" >${n.i18n.postpaid}</option>
+						</select>
+				 </div>
+				 <div class="col-sm-2">
+						<label title="${n.i18n.noimang}" id="noimang_label" align="left" >${n.i18n.noimang}</label>&nbsp;
+						<input type="radio"  class ="radio_nnm" name="radio_nnm" id="noimang" value="1"/>
+				 </div>
+				 <div class="col-sm-2">
+						<label title="${n.i18n.ngoaimang}" id="ngoaimang_label" align="left" >${n.i18n.ngoaimang}</label>&nbsp;
+						<input type="radio" class ="radio_nnm" name="radio_nnm" id="ngoaimang" value="0"/>
+				 </div>
+			</div>
+	 </div>
+	 <br>
+	 <div id="content_main">
+			<div id="voice_data">
+				 <div class="container-fluid bg-3 text-center">
+						<div class="row">
+							 <div class="col-sm-2">
+									<label align="left" >${n.i18n.maximum_minute_call}</label>
+							 </div>
+							 <div class="col-sm-3">
+									<input  type="number"  min="0" class="form-control" name="common_data" id="maximum_minute_call">
+							 </div>
+							 <div class="col-sm-2">
+									<label align="left" style ="padding-left:40px;" >${n.i18n.ngaythuchien}</label>
+							 </div>
+							 <div class="col-sm-3">
+									<input  type="text" readonly class="form-control ngaythuchien" name="ngaythuchien">
+							 </div>
+						</div>
+				 </div>
+				 <br>
+			</div>
+			<div id="sms_data">
+				 <div class="container-fluid bg-3 text-center">
+						<div class="row">
+							 <div class="col-sm-2">
+									<label align="left" >${n.i18n.maximum_sms_period}</label>
+							 </div>
+							 <div class="col-sm-3">
+									<input  type="number"  min="0" class="form-control" name="common_data" id="maximum_sms_period">
+							 </div>
+							 <div class="col-sm-2">
+									<label align="left" style ="padding-left:40px;" >${n.i18n.ngaythuchien}</label>
+							 </div>
+							 <div class="col-sm-3">
+									<input  type="text" readonly class="form-control ngaythuchien" name="ngaythuchien">
+							 </div>
+						</div>
+				 </div>
+			</div>
+			<div id="mobile_data">
+				 <div class="container-fluid bg-3 text-center">
+						<div class="row">
+							 <div class="col-sm-2">
+									<label align="left" >${n.i18n.maximum_mobile_period}</label>
+							 </div>
+							 <div class="col-sm-3">
+									<input  type="number" min="0"  class="form-control" name="common_data" id="maximum_mobile_period">
+							 </div>
+							 <div class="col-sm-2">
+									<label align="left" style ="padding-left:40px;" >${n.i18n.ngaythuchien}</label>
+							 </div>
+							 <div class="col-sm-3">
+									<input  type="text" readonly class="form-control ngaythuchien" name="ngaythuchien" >
+							 </div>
+						</div>
+				 </div>
+			</div>
+	 </div>
+	 -->
+<br></br>
+<div class="container text-center">
+    <span id="result"></span>&nbsp;<button type="button" class="btn btn-success" id="update_data"><i class="fa fa-plus-square"></i>${n.i18n.crud_new_button_message}</button> &nbsp;
+    <button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>
+</div>
+<br>
+<div class="container-fluid bg-3 text-center">
+    <div id="checkRecord">
+    </div>
+</div>
+<div>
+    <div class="box-padding">
+        <span>Note:</span>
+    </div>
+</div>
+<br>
+<script type="text/javascript">
+    var check = 1;
+    var full_all_input = 0;
+
+    function getInfo_other() {
+        if ($('#loai_ht').val() == 0) {
+            $('#content_main').children().hide();
+        }
+        if ($('#loai_ht').val() == "voice") {
+            $('#voice_data').show();
+        } else {
+            $('#voice_data').hide();
+        }
+        if ($('#loai_ht').val() == "sms") {
+            $('#sms_data').show();
+        } else {
+            $('#sms_data').hide();
+        }
+        if ($('#loai_ht').val() == "data") {
+            $('#mobile_data').show();
+        } else {
+            $('#mobile_data').hide();
+        }
+
+        $('.ngaythuchien').datepicker({
+            format: "mm/dd/yyyy"
+        });
+        $(".ngaythuchien").datepicker().datepicker("setDate", new Date());
+        $(".ngaythuchien").prop('disabled', true);
+
+    }
+
+    $('#goSearch').click(function() {
+        window.location.href = 'crud.jsp?crud_type=promo_info/index.html';
+    });
+
+    $(function() {
+        /*
+			$("#begin_date").change(function(){
+				var begin_date = new Date($("#begin_date").val());
+				var end_date = new Date($("#end_date").val());
+				
+				if(begin_date < new Date(new Date().setDate(new Date().getDate()-1))){
+					$('#begin_date_label').html("${n.i18n.begin_larger_than_today}");
+					check = 0;
+				}else
+				if(begin_date > end_date){
+					$('#begin_date_label').html("${n.i18n.invalid_begin_end_date}");
+					check = 0;
+				}else{
+					check = 1;
+					$('#begin_date_label').html("");
+					$('#end_date_label').html("");
+				}
+			});
+			
+			$("#end_date").change(function(){
+				var begin_date = new Date($("#begin_date").val());
+				var end_date = new Date($("#end_date").val());
+				if(begin_date > end_date){
+					$('#end_date_label').html("${n.i18n.invalid_end_begin_date}");
+					check = 0;
+				}else{
+					check = 1;
+					$('#begin_date_label').html("");
+					$('#end_date_label').html("");
+				}
+			});
+			 */
+        $('#doClear').click(function() {
+            $("input").each(function() {
+                $(this).val('')
+            });
+            $("textarea").each(function() {
+                $(this).val('')
+            });
+            $("select").each(function() {
+                $(this).attr('selectedIndex', 0);
+            });
+        });
+
+        $('#update_data').click(function() {
+            var data = {
+                "p1": $("#cost_name_form").val(),
+                "p2": $('#loai_ht').val(),
+                "p3": $('#period').val(),
+                "p4": $('#end_date').val(),
+                "p5": $('#loai_tb').val(),
+                "p6": $('input[name=radio_nnm]:checked').val(),
+                "p7": $("#cost_enjoy").val(),
+                "p8": $('#maximum_minute_call').val(),
+                "p9": $("#maximum_minute_call_period").val(),
+                "p10": $('#maximum_sms_period').val(),
+                "p11": $('#maximum_mobile_period').val(),
+                "p12": $(".ngaythuchien").val(),
+                "p13": ""
+            };
+
+            if (!confirm('${n.i18n.crud_confirm_message}')) {
+                return;
+            }
+            /*
+            jQuery.each(data, function(i, val) {
+            	if(val == "" || val == null){
+            	$("#result").html('${n.i18n.need_input_all_info}');
+            	check = 0;
+            	full_all_input = 0;
+            	}else{
+            	full_all_input = 1;
+            	}
+            });
+             
+            		if(check ==1){
+            			*/
+            $.ajax({
+                url: 'crud_exec.jsp?crud_type=promo_info/new_exec.html',
+                data: data,
+                success: function(data) {
+                    if (data.indexOf("1") >= 0) {
+                        $("#result").html('${n.i18n.update_promo_success}');
+                    } else if (data.indexOf("2") >= 0) {
+                        $("#result").html("Kh&#244;ng th&#7875; t&#7841;o th&#234;m b&#7843;n ghi tr&#249;ng ng&#224;y");
+                        var data_check = {
+                            "started_date": $('#begin_date').val(),
+                            "end_date": $('#end_date').val()
+                        };
+                        $.ajax({
+                            url: 'crud_exec.jsp?crud_type=promo_info/checkRecord.html',
+                            data: data_check,
+                            success: function(data) {
+                                $("#checkRecord").html(data);
+                            }
+                        });
+                    } else {
+                        $("#result").html(data);
+                    }
+                }
+            });
+        });
+    });
+    $(document).ready(function() {
+
+        //getPeriodOfYear(new Date());
+    });
+
+    function getPeriodOfYear(year) {
+        var months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+        var Year = year.getFullYear();
+        var html = "<select class='form-control' name='period' id='period'><option value=''>${n.i18n.crud_khong_chon}</option>";
+        for (var i = 0; i < months.length; i++) {
+            var t_period = months[i] + "-" + "01-" + Year;
+            var period = months[i] + Year;
+            console.log(t_period);
+            if (new Date(t_period) >= year)
+                html += "<option value='" + period + "'>" + period + "</option>";
+        }
+        html += "</select>";
+        $("#getoption_period").html(html);
+    }
+</script>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://gip.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp200409="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp200607="http://www.w3.org/2006/07/ws-policy" xmlns:ns0="http://gip.com/" xmlns:ns1="http://www.datapower.com/extensions/http://schemas.xmlsoap.org/wsdl/soap12/">
+  <wsdl:import location="GIP_WSP.wsdl" namespace="http://www.datapower.com/extensions/http://schemas.xmlsoap.org/wsdl/soap12/"/>
+  <wsdl:types xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:schema>
+      <xsd:import schemaLocation="GIP_WSP.xsd2.xsd" namespace="http://gip.com/"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="xuLyTruyVanMsg">
+    <wsdl:part name="parameters" element="xsns:xuLyTruyVanMsg" xmlns:xsns="http://gip.com/"/>
+  </wsdl:message>
+  <wsdl:message name="xuLyTruyVanMsgResponse">
+    <wsdl:part name="parameters" element="xsns:xuLyTruyVanMsgResponse" xmlns:xsns="http://gip.com/"/>
+  </wsdl:message>
+  <wsdl:portType name="GIP_WS">
+    <wsdl:operation name="xuLyTruyVanMsg">
+      <wsdl:input name="xuLyTruyVanMsgRequest" message="ns0:xuLyTruyVanMsg"/>
+      <wsdl:output name="xuLyTruyVanMsgResponse" message="ns0:xuLyTruyVanMsgResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GIP_WSPortBinding" type="ns0:GIP_WS">
+    <soap11:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="xuLyTruyVanMsg">
+      <soap11:operation soapAction="" style="document"/>
+      <wsdl:input name="xuLyTruyVanMsgRequest">
+        <soap11:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="xuLyTruyVanMsgResponse">
+        <soap11:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GIP_WS">
+    <wsdl:port name="GIP_WSPort" binding="ns0:GIP_WSPortBinding">
+      <soap11:address location="https://esb.gdt.gov.vn:443/GIP_WSP"/>
+    </wsdl:port>
+    <wsdl:port name="GIP_WSPort.1" binding="ns0:GIP_WSPortBinding">
+      <soap11:address location="https://esb.gdt.gov.vn:443/GIP_WSP"/>
+    </wsdl:port>
+    <wsdl:port name="GIP_WSPort.2" binding="ns1:GIP_WSPortBinding">
+      <soap12:address location="https://esb.gdt.gov.vn:443/GIP_WSP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

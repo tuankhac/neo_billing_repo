@@ -1,0 +1,74 @@
+<table id="cost_data" class='table table-condensed'>
+   <tr>
+      <th colspan='4'><b>${n.i18n.crud_search_button_message.toUpperCase()}</b></th>
+   </tr>
+   <tr>
+   <td title="" id="name_label">${n.i18n.cost_data_name}</td>
+      <td>
+         <input  type="number" class="form-control" name="name" id="name"><span id="name_msg"></span>
+      </td>
+      <td title="" id="data_label">${n.i18n.cost_data_data}</td>
+      <td>
+         <input type="number" min="0" class="form-control" name="data" id="data"><span id="data_msg"></span>
+      </td> 
+ 
+   </tr>
+   <tr>
+      
+      <td title="" id="price_label">${n.i18n.cost_data_price}</td>
+      <td>
+         <input type="number" min="0" class="form-control" name="price" id="price"><span id="price_msg"></span>
+      </td>
+	  <td title="" id="note_label">${n.i18n.cost_data_note}</td>
+      <td>
+         <input  type="text" class="form-control" name="note" id="note"><span id="note_msg"></span>
+      </td>	 
+   </tr>
+   <tr>
+      <td title="" id="from_date_label">${n.i18n.cost_data_from_date}</td>
+      <td>
+         <input  type="text" class="form-control" name="from_date" id="from_date"><span id="from_date_msg"></span>
+      </td>
+	  <td title="" id="to_date_label">${n.i18n.cost_data_to_date}</td>
+      <td>
+         <input  type="text" class="form-control" name="to_date" id="to_date"><span id="to_date_msg"></span>
+      </td>
+   </tr>
+
+   <tr id='control'><td colspan='4' align='center'><font id="result"></font>
+      <button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+      <button class="btn btn-primary" name="doClear" id="doClear"><i class="fa fa-eraser"></i> ${n.i18n.crud_clear_form_button_message}</button>&nbsp;
+      <button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+   </td>
+</tr></table>
+<script type="text/javascript">
+	$(function(){
+		$('#doNew').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&name='+$('#name').val()+'&data='+$('#data').val()+'&price='+$('#price').val()+'&note='+$('#note').val()+'&from_date='+$('#from_date').val()+'&to_date='+$('#to_date').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=cost_data/new_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_new_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=cost_data/index.html';
+		});
+	});
+	$(document).ready(function(){
+     $('#from_date').datepicker({format:"yyyy-mm-dd"});
+     $('#to_date').datepicker({format:"yyyy-mm-dd"});
+  });
+</script>

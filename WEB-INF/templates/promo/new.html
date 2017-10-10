@@ -1,0 +1,284 @@
+<head>
+ <link href="assets/bootstrap/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+ <script src="assets/bootstrap/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+ <script src="assets/bootstrap/plugins/autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
+ <link href="assets/bootstrap/plugins/autocomplete/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<br>
+<div class="container text-center">
+  <h4 class="box-title">${n.i18n.promo_infomation.toUpperCase()}</h4>
+</div>
+<br>
+<div class="container-fluid bg-3 text-center">    
+   <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-3">
+       <label title="${n.i18n.cost_name_label}" id="cost_name_label" align="right" style ="padding-left:40px;" >${n.i18n.cost_name_label}</label>
+   </div>
+   <div class="col-sm-4">
+     <input class="form-control" name="cost_name_form" id="cost_name_form" placeholder="${n.i18n.cost_name_label}">
+	</input>
+</div>
+</div>
+</div>
+<br>
+<div class="container-fluid bg-3 text-center">    
+   <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-3">
+       <label title="${n.i18n.cost_data_type_label}" id="cost_data_type_label" align="right" style ="padding-left:40px;" >${n.i18n.cost_data_type_label}</label>
+   </div>
+   <div class="col-sm-4">
+     <select class="form-control" name="cost_data_type" id="cost_data_type" onchange ="getInfo_other()" >
+      <option value="">${n.i18n.crud_khong_chon}</option>
+      <option value="voice">${n.i18n.option_cost_voice}</option>
+      <option value="sms" hidden>Cước SMS</option>
+      <option value="mms" hidden>Cước MMS</option>
+      <option value="data" >${n.i18n.option_cost_mobile_data}</option>
+  </select>
+</div>
+</div>
+</div><br>
+
+<div class="container-fluid bg-3 text-center">    
+   <div class="row">
+    <div class="col-sm-2">
+       <label align="right" >${n.i18n.begin_date}</label>
+   </div>
+   
+   <div class="col-sm-3">
+       <input  type="date" value="" class="form-control" name="begin_date" id="begin_date">
+	   <span name="begin_date_label" id="begin_date_label"> </span>
+   </div>
+   
+   <div class="col-sm-2">
+       <label align="right" style ="padding-left:40px;" >${n.i18n.end_date}</label>
+   </div>
+   <div class="col-sm-3">
+       <input  type="date"  class="form-control" name="end_date" id="end_date">
+	   <span name="end_date_label" id="end_date_label"> </span>
+   </div>
+</div>
+</div><br>
+
+<div class="container-fluid bg-3 text-center">    
+   <div class="row">
+    <div class="col-sm-2">
+       <label title="${n.i18n.loaitb_label}" id="loaitb_label" align="right" pattern="[A-Z]+" required="'required'" >${n.i18n.loaitb_label}</label>
+   </div>
+   
+   <div class="col-sm-3">
+       <select hidden class="form-control" name="loaitb" id="loaitb">
+		  <option value="">${n.i18n.crud_khong_chon}</option>
+		  <option value="prepaid">${n.i18n.prepaid}</option>
+		  <option value="postpaid" >${n.i18n.postpaid}</option>
+	   </select>
+   </div>
+   
+   <div class="col-sm-2">
+       <label title="${n.i18n.noimang}" id="noimang_label" align="right" >${n.i18n.noimang}</label>&nbsp;
+       <input type="radio"  class ="radio_nnm" name="radio_nnm" id="noimang" value="1"/>
+   </div>
+   <div class="col-sm-2">
+    <label title="${n.i18n.ngoaimang}" id="ngoaimang_label" align="right" >${n.i18n.ngoaimang}</label>&nbsp;
+    <input type="radio" class ="radio_nnm" name="radio_nnm" id="ngoaimang" value="0"/>
+</div>
+</div>
+</div>
+<br>
+<div class="container-fluid bg-3 text-center">    
+   <div class="row">
+   
+   <div class="col-sm-2">
+       <label title="${n.i18n.cost_label}" id="cost_label" align="right" >${n.i18n.cost_label}</label>
+   </div>
+   <div class="col-sm-3">
+       <input type="number" min="0" class="form-control" name="cost_enjoy" id="cost_enjoy" placeholder="${n.i18n.currency_unit}"/>
+   </div>
+</div>
+</div>
+<br>
+
+<div id="content_main">
+ <div id="voice_data">
+   <div class="container-fluid bg-3 text-center">    
+     <div class="row">
+      <div class="col-sm-2">
+         <label align="right" >${n.i18n.maximum_minute_call}</label>
+     </div>
+     
+     <div class="col-sm-3">
+         <input  type="number"  min="0" class="form-control" name="common_data" id="maximum_minute_call">
+     </div>
+     
+     <div class="col-sm-2">
+         <label align="right" style ="padding-left:40px;" >${n.i18n.ngaythuchien}</label>
+     </div>
+     <div class="col-sm-3">
+         <input  type="text" readonly class="form-control ngaythuchien" name="ngaythuchien">
+     </div>
+ </div>
+</div><br>
+</div>    
+
+ 
+<div id="sms_data">
+	<div class="container-fluid bg-3 text-center">    
+        <div class="row">
+         <div class="col-sm-2">
+            <label align="right" >${n.i18n.maximum_sms_period}</label>
+        </div>
+        
+        <div class="col-sm-3">
+            <input  type="number"  min="0" class="form-control" name="common_data" id="maximum_sms_period">
+        </div>
+        
+        <div class="col-sm-2">
+            <label align="right" style ="padding-left:40px;" >${n.i18n.ngaythuchien}</label>
+        </div>
+        <div class="col-sm-3">
+            <input  type="text" readonly class="form-control ngaythuchien" name="ngaythuchien">
+        </div>
+    </div>
+</div>
+</div>
+<div id="mobile_data">
+	<div class="container-fluid bg-3 text-center">    
+        <div class="row">
+         <div class="col-sm-2">
+            <label align="right" >${n.i18n.maximum_mobile_period}</label>
+        </div>
+        
+        <div class="col-sm-3">
+            <input  type="number" min="0"  class="form-control" name="common_data" id="maximum_mobile_period">
+        </div>
+        
+        <div class="col-sm-2">
+            <label align="right" style ="padding-left:40px;" >${n.i18n.ngaythuchien}</label>
+        </div>
+        <div class="col-sm-3">
+            <input  type="text" readonly class="form-control ngaythuchien" name="ngaythuchien" >
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<br></br>
+<div class="container text-center">
+	<span id="result"></span>&nbsp;<button type="button" class="btn btn-success" id="update_data">${n.i18n.button_update}</button>
+</div>
+<div> 
+	<div class="box-padding">
+		<span>Note:</span>
+	</div>
+</div>
+<br>
+<script type="text/javascript">
+var check = 1;
+var full_all_input = 0;
+
+   function getInfo_other(){
+      if($('#cost_data_type').val() ==0){
+        $('#content_main').children().hide();
+    }
+    if($('#cost_data_type').val() =="voice"){
+        $('#voice_data').show();
+    }else{
+        $('#voice_data').hide();
+    }
+    if($('#cost_data_type').val() =="sms"){
+        $('#sms_data').show();
+    }else{
+        $('#sms_data').hide();
+    }
+    if($('#cost_data_type').val() =="data"){
+        $('#mobile_data').show();
+    }else{
+        $('#mobile_data').hide();
+    }
+    
+    $('.ngaythuchien').datepicker({format:"mm/dd/yyyy"});
+    $(".ngaythuchien").datepicker().datepicker("setDate",new Date());
+	$(".ngaythuchien").prop('disabled', true);
+	 
+}
+
+$(function(){
+	$("#begin_date").change(function(){
+		var begin_date = new Date($("#begin_date").val());
+		var end_date = new Date($("#end_date").val());
+		
+		if(begin_date < new Date(new Date().setDate(new Date().getDate()-1))){
+			$('#begin_date_label').html("${n.i18n.begin_larger_than_today}");
+			check = 0;
+		}else
+		if(begin_date > end_date){
+			$('#begin_date_label').html("${n.i18n.invalid_begin_end_date}");
+			check = 0;
+		}else{
+			check = 1;
+			$('#begin_date_label').html("");
+			$('#end_date_label').html("");
+		}
+	});
+	
+	$("#end_date").change(function(){
+		var begin_date = new Date($("#begin_date").val());
+		var end_date = new Date($("#end_date").val());
+		if(begin_date > end_date){
+			$('#end_date_label').html("${n.i18n.invalid_end_begin_date}");
+			check = 0;
+		}else{
+			check = 1;
+			$('#begin_date_label').html("");
+			$('#end_date_label').html("");
+		}
+	});
+	$('#update_data').click(function(){
+		var data = {"p1":$("#cost_name_form").val(),"p2":$('#cost_data_type').val(),"p3":$('#begin_date').val(),
+			"p4":$('#end_date').val(),"p5":$('#loaitb').val(),"p6":$('input[name=radio_nnm]:checked').val(),"p7":$("#cost_enjoy").val(),
+			"p8":$('#maximum_minute_call').val(),"p9":$("#maximum_minute_call_period").val(),"p10":$('#maximum_sms_period').val(),
+			"p11":$('#maximum_mobile_period').val(),"p12":$(".ngaythuchien").val()};
+		
+		if (!confirm('${n.i18n.crud_confirm_message}')) {
+          return;
+        }
+		/*
+		jQuery.each(data, function(i, val) {
+		  if(val == "" || val == null){
+			$("#result").html('${n.i18n.need_input_all_info}');
+			check = 0;
+			full_all_input = 0;
+		  }else{
+			full_all_input = 1;
+		  }
+		});
+	   */
+       if(check ==1){
+         $.ajax({
+            url: 'crud_exec.jsp?crud_type=promo/ajax_index.html',
+            data:data,
+            success: function(data){ 
+               if(data.indexOf("1.0") >= 0){
+                  $("#result").html('${n.i18n.update_promo_success}');
+              }else{
+                  $("#result").html(data);
+              }
+          }
+		  });
+		}else if(full_all_input ==1 && check ==0){
+			alert("${n.i18n.check_info_again}");
+		}
+	 });
+});
+$(document).ready(function(){
+	$('#content_main').children().hide();  
+	
+	var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+	$("#begin_date").val(today);
+});
+</script>

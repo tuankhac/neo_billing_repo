@@ -1,0 +1,4 @@
+#set ($list = $u.ref("crud_search_cost_voice_group_service","default",["$!{group_id}","$!{group_name}","$!{note}","$!{record_per_page}","-1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],7) )
+{"NOP":"$!list[0]['NOP']'", "NOR":"$!list[0]['NOR']"}
+ 
+ 

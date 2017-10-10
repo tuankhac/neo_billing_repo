@@ -1,0 +1,31 @@
+
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+<tr><th colspan='5'><b>${n.i18n.promo_info_error_upload_list.toUpperCase()}</b></th></tr>
+	<tr>
+		<th>&nbsp;</th>
+		<th style="text-align:center;">${n.i18n.promo_info_promo_id}</th>
+		<th style="text-align:center;">${n.i18n.promo_stb}</th>
+		<th style="text-align:center;">${n.i18n.company_information_company_id}</th>
+		<th style="text-align:center;">${n.i18n.promo_info_log}</th>
+</tr>
+#set ($list = $u.ref("view_data_upload_promo","default",["$!{upload_id}","$!{id_promo}","$!{hinhthuc}","$!{pmonth}","$!{record_per_page}","$!{page_index}",
+"$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],8))
+#set ($k = 0)
+#foreach ($i in $list)
+#set ($k = $!i['FAIL_RECORDS'])
+<tr>
+	<td width='22px' style="text-align:center;"><input type="radio" id="rad$i['ID']" name="promo_info_rad"></td>
+	<td style="text-align:center;"name='promo_id'>$!i["PROMO_ID"].trim()</td>
+	<td style="text-align:center;"name='stb'>$!i["STB"].trim()</td>
+	<td style="text-align:center;"name='stb'>$!i["COMPANY_ID"].trim()</td>
+	<td style="text-align:center;"name='stb'>$!i["LOG"].trim()</td>
+</tr>
+#end
+</table>
+<script>
+	$('#ajax_promo_info :radio').change(function(){	
+		$('#ajax_promo_info :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+	$("#fail_records").html("$k");
+</script>
+

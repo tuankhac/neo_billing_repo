@@ -1,0 +1,24 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th align=center>${n.i18n.promo_info_ten_htkm}</th>
+		<th align=center>${n.i18n.promo_info_started_date}</th>
+		<th align=center>${n.i18n.promo_info_end_date}</th>
+	</tr>
+	#set ($list = $u.ref("crud_search_promo_info_service","default",["$!{kmht_id}","$!{promo_id}","$!{ten_htkm}","$!{loaiht_id}",
+	"$!{phi_dichvu}","$!{started_date}","$!{end_date}","$!{noimang}","$!{loai_tb}","50","1",
+	"$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13) )
+	#foreach ($i in $list)
+	<tr>
+		<td align=left name='ten_htkm'>$!i["TEN_HTKM"]</td>
+		<td align=center name='started_date'>$!i["STARTED_DATE"]</td>
+		<td align=center name='end_date'>$!i["END_DATE"]</td>
+		<!--<td align=left name='time_promo_period'>$!i["TIME_PROMO_PERIOD"]</td>-->
+		
+	</tr>
+	#end
+</table>
+<script>
+	$('#ajax_promo_info :radio').change(function(){	
+		$('#ajax_promo_info :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

@@ -1,0 +1,4 @@
+crud_new_cost_sub_conference_service=select new_cost_sub_conference(?,?,?,?,?,?,?,?,?,?);
+crud_search_cost_sub_conference_service={call search_cost_sub_conference(?,?,?,?,?,?,?,?,?,?,?,?)};
+crud_edit_cost_sub_conference_service=select edit_cost_sub_conference(?,?,?,?,?,?,?,?,?,?);
+crud_delete_cost_sub_conference_service=select del_cost_sub_conference(?,?,?);

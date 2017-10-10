@@ -1,0 +1,3 @@
+cost_voice_group_group_id=GROUP_ID
+cost_voice_group_group_name=GROUP_NAME
+cost_voice_group_note=NOTE

@@ -1,0 +1,202 @@
+<table id="cost_sub_mvnp" class='table table-condensed'>
+    <tr>
+        <th colspan='4'><b>${n.i18n.crud_search_button_message.toUpperCase()}</b></th>
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.cost_sub_mvnp_id}</td>
+        <td>
+            <input type="number" min="0" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+        <td title="${n.i18n.crud_valid_length_prefix} 200 ${n.i18n.crud_valid_length_postfix}" id="name_label">${n.i18n.cost_sub_mvnp_name}</td>
+        <td>
+            <input type="text" class="form-control" name="name" id="name"><span id="name_msg"></span></td>
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="from_amount_label">${n.i18n.cost_sub_mvnp_from_amount}</td>
+        <td>
+            <input type="number" min="0" class="form-control" name="from_amount" id="from_amount"><span id="from_amount_msg"></span></td>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="to_amount_label">${n.i18n.cost_sub_mvnp_to_amount}</td>
+        <td>
+            <input type="number" min="0" class="form-control" name="to_amount" id="to_amount"><span id="to_amount_msg"></span></td>
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="price_label">${n.i18n.cost_sub_mvnp_price}</td>
+        <td>
+            <input type="number" min="0" class="form-control" name="price" id="price" placeholder="${n.i18n.tinh_theo_dong}"><span id="price_msg"></span></td>
+        <td title="${n.i18n.crud_valid_length_prefix} 500 ${n.i18n.crud_valid_length_postfix}" id="note_label">${n.i18n.cost_sub_mvnp_note}</td>
+        <td>
+            <input type="text" class="form-control" name="note" id="note"><span id="note_msg"></span></td>
+    </tr>
+    <tr>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="from_date_label">${n.i18n.cost_sub_mvnp_from_date}</td>
+        <td>
+            <input type="text" class="form-control" name="from_date" id="from_date"><span id="from_date_msg"></span></td>
+        <td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="to_date_label">${n.i18n.cost_sub_mvnp_to_date}</td>
+        <td>
+            <input type="text" class="form-control" name="to_date" id="to_date"><span id="to_date_msg"></span></td>
+    </tr>
+    <tr id='control'>
+        <td colspan='4' align='center'>
+            <font id="result"></font>
+            <button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp; <button class="btn btn-primary" name="goNew" id="goNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message} &gt;</button>&nbsp;
+            <button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+            <button class="btn btn-primary" name="goEdit" id="goEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message} &gt;</button>&nbsp;
+        </td>
+    </tr>
+</table>
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div>
+        <div id="div_page_section2" class=""></div>
+    </div>
+</section>
+<script type="text/javascript">
+    var record_per_page = 20,
+        page = 1,
+        nor = 0;
+    var objPage = new pageTemplates('', 'div_page_section2', 'pClick', 'onGetData');
+    objPage.setRecPerPage(record_per_page);
+    objPage.setTypeTemplate('BOOTSTRAP');
+    $(function() {
+        //$('#doSearch').click(function(){
+        //	$('#result').html('${n.i18n.crud_process_message}');
+        //	$.ajax({
+        //		url: 'crud_exec.jsp?crud_type=cost_sub_mvnp/ajax_index.html&record_per_page=500&page_index=1'+'&id='+$('#id').val()+'&name='+$('#name').val()+'&from_amount='+$('#from_amount').val()+'&to_amount='+$('#to_amount').val()+'&price='+$('#price').val()+'&note='+$('#note').val()+'&from_date='+$('#from_date').val()+'&to_date='+$('#to_date').val(),
+        //		success: function(data){ 
+        //			$('#data-list').html(data);
+        //			$('#result').html('');
+        //		}
+        //	});
+        //});
+        $('#doSearch').click(function() {
+            $('#result').html('${n.i18n.crud_process_message}');
+            $.ajax({
+                url: 'crud_exec.jsp?crud_type=cost_sub_mvnp/ajax_get_nop_nor.html' + getParams(page, record_per_page),
+                success: function(data) {
+                    eval('data=' + data);
+                    nor = data.NOR * 1;
+                    $('#data-list').html(data);
+                    $('#result').html('');
+                    onStartSearch(data.NOR);
+                }
+            });
+        });
+        $('#doSearch').click();
+        $('#goNew').click(function() {
+            window.location.href = 'crud.jsp?crud_type=cost_sub_mvnp/new.html';
+        });
+        $('#goEdit').click(function() {
+            if ($(':radio:checked').parent().parent().children("[name='id']").length >= 1) {
+                window.location.href = 'crud.jsp?crud_type=cost_sub_mvnp/edit.html&id=' + $(':radio:checked').parent().parent().children("[name='id']").text();
+            } else {
+                alert('${n.i18n.crud_alert_select_one}');
+            }
+        });
+        $('#goDelete').click(function() {
+            if ($(':radio:checked').parent().parent().children("[name='id']").length >= 1) {
+                window.location.href = 'crud.jsp?crud_type=cost_sub_mvnp/delete.html&id=' + $(':radio:checked').parent().parent().children("[name='id']").text();
+            } else {
+                alert('${n.i18n.crud_alert_select_one}');
+            }
+        });
+        $('#id').blur(function() {
+            if ($('#id').val() * 1 == $('#id').val()) {
+                $('#id_msg').html('');
+                $('#id_msg').attr('style', 'display:none');
+            } else {
+                $('#id_msg').html('${n.i18n.cost_sub_mvnp_id} ${n.i18n.crud_is_number_message}');
+                $('#id_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+        $('#from_amount').blur(function() {
+            if ($('#from_amount').val() * 1 == $('#from_amount').val()) {
+                $('#from_amount_msg').html('');
+                $('#from_amount_msg').attr('style', 'display:none');
+            } else {
+                $('#from_amount_msg').html('${n.i18n.cost_sub_mvnp_from_amount} ${n.i18n.crud_is_number_message}');
+                $('#from_amount_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+        $('#to_amount').blur(function() {
+            if ($('#to_amount').val() * 1 == $('#to_amount').val()) {
+                $('#to_amount_msg').html('');
+                $('#to_amount_msg').attr('style', 'display:none');
+            } else {
+                $('#to_amount_msg').html('${n.i18n.cost_sub_mvnp_to_amount} ${n.i18n.crud_is_number_message}');
+                $('#to_amount_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+        $('#price').blur(function() {
+            if ($('#price').val() * 1 == $('#price').val()) {
+                $('#price_msg').html('');
+                $('#price_msg').attr('style', 'display:none');
+            } else {
+                $('#price_msg').html('${n.i18n.cost_sub_mvnp_price} ${n.i18n.crud_is_number_message}');
+                $('#price_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+        $('#from_date').blur(function() {
+            if ($('#from_date').val() == '' || patternValidate($('#from_date'), 'dd/mm/yyyy')) {
+                $('#from_date_msg').html('');
+                $('#from_date_msg').attr('style', 'display:none');
+            } else {
+                $('#from_date_msg').html('${n.i18n.cost_sub_mvnp_from_date} dạng dd/mm/yyyy');
+                $('#from_date_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+        $('#to_date').blur(function() {
+            if ($('#to_date').val() == '' || patternValidate($('#to_date'), 'dd/mm/yyyy')) {
+                $('#to_date_msg').html('');
+                $('#to_date_msg').attr('style', 'display:none');
+            } else {
+                $('#to_date_msg').html('${n.i18n.cost_sub_mvnp_to_date} dạng dd/mm/yyyy');
+                $('#to_date_msg').attr('style', 'display:block');
+                return false;
+            }
+        });
+    });
+
+    function pClick(ps_page_id, ps_rec_per_page) {
+        objPage.setCurrentPage(ps_page_id);
+        objPage.setRecPerPage(ps_rec_per_page);
+        objPage.returnDataCount(objPage.getTotalRec());
+    }
+    //Ham nay tu dong duoc goi sau khi click vao cac so...:
+    function onGetData(page, size) {
+        $.ajax({
+            url: 'crud_exec.jsp?crud_type=cost_sub_mvnp/ajax_index.html' + getParams(page, record_per_page),
+            timeout: 1000,
+            success: function(data) {
+                if (data != '') {
+                    $('#data-list').html(data);
+                    $('#result').html('');
+                }
+                if (nor == 0 && data != '') {
+                    $('#result').html('Không có dữ liệu!');
+                }
+            }
+        });
+    }
+    //Ham tra ve chuoi parameters, truyen vao ajax de lay nop, nor va du lieu hien thi
+    function getParams(page, record_per_page) {
+        var exec = '&record_per_page=' + record_per_page + '&page_index=' + page + '&id=' + $('#id').val() + '&name=' + $('#name').val() + '&from_amount=' + $('#from_amount').val() + '&to_amount=' + $('#to_amount').val() + '&price=' + $('#price').val() + '&note=' + $('#note').val() + '&from_date=' + $('#from_date').val() + '&to_date=' + $('#to_date').val();
+        return exec;
+    }
+
+    function onStartSearch(total) {
+        objPage.setCurrentPage(1);
+        objPage.returnDataCount(total);
+    }
+    $(document).ready(function() {
+        $('#from_date').datepicker({
+            format: "yyyy-mm-dd"
+        });
+        $('#to_date').datepicker({
+            format: "yyyy-mm-dd"
+        });
+    });
+</script>

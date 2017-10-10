@@ -1,0 +1,7 @@
+cost_data_id=ID
+cost_data_name=NAME
+cost_data_data=DATA
+cost_data_price=PRICE
+cost_data_note=NOTE
+cost_data_from_date=FROM_DATE
+cost_data_to_date=TO_DATE

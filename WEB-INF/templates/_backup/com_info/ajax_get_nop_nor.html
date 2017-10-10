@@ -1,0 +1,4 @@
+#set ($list = $u.ref("crud_search_company_information_service","default",["$!{company_id}","$!{company_name}","$!{mvpn_users}","$!{mpbx_users}","$!{conference_users}","$!{mpbx_main_numbers}","$!{billing_cycle_day}","$!{created}","$!{record_per_page}","-1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],12) )
+{"NOP":"$!list[0]['NOP']'", "NOR":"$!list[0]['NOR']"}
+ 
+ 

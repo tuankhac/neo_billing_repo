@@ -1,0 +1,30 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.cost_data_id}</th>
+		<th align=center>${n.i18n.cost_data_name}</th>
+		<th align=center>${n.i18n.cost_data_data_kb}</th>
+		<th align=center>${n.i18n.cost_data_price}</th>
+		<th align=center>${n.i18n.cost_data_note}</th>
+		<th align=center>${n.i18n.cost_data_from_date}</th>
+		<th align=center>${n.i18n.cost_data_to_date}</th>
+	</tr>
+	#set ($list = $u.ref("crud_search_cost_data_service","default",["$!{id}","$!{name}","$!{data}","$!{price}","$!{note}","$!{from_date}","$!{to_date}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],11) )
+	#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="cost_data_rad"></td>
+		<td align=center name='id'>$!i["ID"]</td>
+		<td align=center name='name'>$!i["RAT_ID"]</td>
+		<td align=center name='data'>$!i["DATA"]</td>
+		<td align=center name='price'>$!i["PRICE"]</td>
+		<td align=center name='note'>$!i["NOTE"]</td>
+		<td align=center name='from_date'>$!i["FROM_DATE"]</td>
+		<td align=center name='to_date'>$!i["TO_DATE"]</td>
+	</tr>
+	#end
+</table>
+<script>
+	$('#ajax_cost_data :radio').change(function(){	
+		$('#ajax_cost_data :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

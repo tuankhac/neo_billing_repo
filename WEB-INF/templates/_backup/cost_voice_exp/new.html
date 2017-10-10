@@ -1,0 +1,86 @@
+<table id="cost_voice_exp" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_new_button_message.toUpperCase()}</b></th></tr>	
+	<tr>
+	<td hidden title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.cost_voice_exp_id}</td>
+	<td hidden><input type="number" min="0" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+	<td title="" id="name_label">${n.i18n.cost_voice_exp_name}</td>
+	<td><input  type="text" class="form-control" name="name" id="name"><span id="name_msg"></span></td>
+	<td title="${n.i18n.crud_valid_length_prefix} 300 ${n.i18n.crud_valid_length_postfix}" id="company_id_label">${n.i18n.cost_voice_exp_company_id}</td>
+	<td><input  type="text" class="form-control" name="company_id" id="company_id"><span id="company_id_msg"></span></td>
+</tr>
+<tr>
+	<td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="from_minute_label">${n.i18n.cost_voice_exp_from_minute}</td>
+	<td><input type="number" min="0" class="form-control" name="from_minute" id="from_minute"><span id="from_minute_msg"></span></td>
+	<td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="to_minute_label">${n.i18n.cost_voice_exp_to_minute}</td>
+	<td><input type="number" min="0" class="form-control" name="to_minute" id="to_minute"><span id="to_minute_msg"></span></td>
+</tr>
+<tr>
+	<td title="${n.i18n.crud_valid_length_prefix} 0 ${n.i18n.crud_valid_length_postfix}" id="price_label">${n.i18n.cost_voice_exp_price}</td>
+	<td><input type="number" min="0" class="form-control" name="price" id="price"><span id="price_msg"></span></td>
+	<td title="" id="note_label">${n.i18n.cost_voice_exp_note}</td>
+	<td><input  type="text" class="form-control" name="note" id="note"><span id="note_msg"></span></td>
+</tr>
+<tr>
+	<td title="" id="from_date_label">${n.i18n.cost_voice_exp_from_date}</td>
+	<td><input  type="text" class="form-control" name="from_date" id="from_date"><span id="from_date_msg"></span></td>
+	<td title="" id="to_date_label">${n.i18n.cost_voice_exp_to_date}</td>
+	<td><input  type="text" class="form-control" name="to_date" id="to_date"><span id="to_date_msg"></span></td>
+</tr>
+
+<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+	<button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+	<button class="btn btn-primary" name="doClear" id="doClear"><i class="fa fa-eraser"></i> ${n.i18n.crud_clear_form_button_message}</button>&nbsp;
+	<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+</td>
+</tr></table>
+<script type="text/javascript">
+	$(function(){
+		$('#doNew').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&id='+$('#id').val()+'&name='+$('#name').val()+'&from_minute='+$('#from_minute').val()+'&to_minute='+$('#to_minute').val()+'&price='+$('#price').val()+'&company_id='+$('#company_id').val()+'&free='+$('#free').val()+'&note='+$('#note').val()+'&from_date='+$('#from_date').val()+'&to_date='+$('#to_date').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=cost_voice_exp/new_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_new_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=cost_voice_exp/index.html';
+		});
+		$('#from_date').blur(function(){
+			if ($('#from_date').val()=='' || patternValidate($('#from_date'),'dd/mm/yyyy')){
+				$('#from_date_msg').html('');
+				$('#from_date_msg').attr('style','display:none');
+			}else{
+				$('#from_date_msg').html('${n.i18n.cost_voice_exp_from_date} dạng dd/mm/yyyy');
+				$('#from_date_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#to_date').blur(function(){
+			if ($('#to_date').val()=='' || patternValidate($('#to_date'),'dd/mm/yyyy')){
+				$('#to_date_msg').html('');
+				$('#to_date_msg').attr('style','display:none');
+			}else{
+				$('#to_date_msg').html('${n.i18n.cost_voice_exp_to_date} dạng dd/mm/yyyy');
+				$('#to_date_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+		$('#from_date').datepicker({format:"yyyy-mm-dd"});
+		$('#to_date').datepicker({format:"yyyy-mm-dd"});
+	});
+</script>

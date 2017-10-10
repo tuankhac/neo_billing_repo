@@ -1,0 +1,73 @@
+﻿
+<table id="" class='table table-condensed'>
+   <tr>
+      <th colspan='4'><h4><b>${n.i18n.reporp_by_day}</b></h4></th>
+   </tr>
+   <tr>
+      <td  title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_period}</td>
+      <td>
+         <select class="form-control" name="period" id="period">
+			<option value="" >${n.i18n.crud_khong_chon}</option>
+			#set ($list = $u.qry("get_info_period_info_service_type","default",[""],0))
+		  #foreach($i in $list)
+				<option value="$!i['date_period']">$!i['date_period']</option>
+		  #end
+	   </select>
+		 <span id="service_type_msg"></span>
+      </td>
+	</tr>
+	
+	<tr hidden>
+      <td >
+         <input  type="checkbox" name="resynthetic" id="resynthetic" />&nbsp;&nbsp;&nbsp;&nbsp;${n.i18n.curd_report_resynthetic}
+      </td>
+	  <td></td>
+	</tr>
+	
+   <tr id='control'>
+      <td colspan='4' align='center'><font id="result"></font>
+         <button class="btn btn-primary" name="cmdPrint" id="cmdPrint" onclick="doExportReportPDF()"><i class="fa fa-print"></i> ${n.i18n.curd_report_print} &gt;</button>&nbsp;	
+         <button class="btn btn-primary"  onclick="doExportReportXLS()"><i class="fa fa-print"></i> ${n.i18n.curd_report_excel_output} &gt;</button>&nbsp;
+      </td>
+   </tr>
+</table>
+
+<script type="text/javascript">
+   $(document).ready(function(){
+	   //$('#period').datepicker({format:"dd/mm/yyyy"}).datepicker("setDate",new Date());
+   });
+   function doExportReportPDF(){
+		var ckChecked = $('#resynthetic:checkbox:checked').length ;
+		var ckValue  = 0 ;
+		if(ckChecked > 0){
+			ckValue = 1;
+		}
+		if($('#period').val() ==""){
+			alert("${n.i18n.chon_chu_ky}");
+			return;
+		}
+	   var jpPath = "${pathroot}WEB-INF/templates/jasper/";
+	   var s_ = window.location.protocol+"//"+window.location.host
+		+"/report/?jasperFile=jasper/revenue_by_day&jasperExportType=pdf&image_path="+jpPath
+		+"&pday="+$('#period').val()+"&pservice_type="+$('#service_type').val()+"&resynthetic="+ckValue;
+	   var w1 = window.open(s_,"w1");
+	   //w1.location.href=window.location.protocol+"//"+window.location.host+"/report/revenue_by_day";
+   }
+   function doExportReportXLS(){
+		var ckChecked = $('#resynthetic:checkbox:checked').length ;
+		var ckValue  = 0 ;
+		if(ckChecked > 0){
+			ckValue = 1;
+		}
+		if($('#period').val() ==""){
+			alert("${n.i18n.chon_chu_ky}");
+			return;
+		}
+	   var jpPath = "${pathroot}WEB-INF/templates/jasper/";
+	   var s_ = window.location.protocol+"//"+window.location.host
+		+"/report/?jasperFile=jasper/revenue_by_day&jasperExportType=xls&image_path="+jpPath
+		+"&pday="+$('#period').val()+"&pservice_type="+$('#service_type').val()+"&resynthetic="+ckValue;
+	   window.open(s_);
+   }
+   
+</script>
