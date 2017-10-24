@@ -1,3 +1,4 @@
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/neotag.tld" prefix="n" %>
 <jsp:useBean id="n" class="neo.velocity.common.NeoContext" scope="session"/>
@@ -5,6 +6,7 @@
 <html>
 
 <%@include file="header.jsp"%>
+<shiro:authenticated>
 <!--value="${sessionScope.lang}" -->
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -20,9 +22,26 @@
         <!-- Block buttons -->
         <div class="box box-primary">
           <div class="box-body no-padding">
+		  <% 
+			String role ="";
+			List<Map<String,String>> list_roles = 
+				ServiceUtility.ref("get_all_role_by_user","default",
+				new String[]{request.getUserPrincipal().getName(),request.getRequestURI()+"?"+request.getQueryString()},2);
+			for (Map<String, String> map : list_roles) {
+				for (Map.Entry<String, String> entry : map.entrySet()) {
+					String key = entry.getKey();
+					role += entry.getValue();
+				}
+			}
+			System.out.println("ra di nao "+role);
+			//role ="DULIEU,";
+		  %>
+		  <shiro:hasAnyRoles name="<%=role%>">
             <n:velocity>
             #parse ("${param.crud_type}")
           </n:velocity>
+		  </shiro:hasAnyRoles>
+		  <shiro:lacksRole name="<%=role%>"><h1 align="center">You don't have role to enter this menu</h1></shiro:lacksRole>
         </div><!-- /.box-body -->
       </div><!-- /.box -->
     </div><!-- /.col -->            
@@ -31,3 +50,4 @@
 </div><!-- /.content-wrapper -->
 </div><!-- ./wrapper -->
 <%@include file="footer.jsp"%> 
+</shiro:authenticated>

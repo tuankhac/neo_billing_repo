@@ -42,7 +42,7 @@
         <td colspan='4' align='center'>
             <font id="result"></font>
             <button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp; <button class="btn btn-primary" name="goNew" id="goNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message} &gt;</button>&nbsp;
-            <button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+            <!--<button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp; -->
             <button class="btn btn-primary" name="goEdit" id="goEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message} &gt;</button>&nbsp;
         </td>
     </tr>
@@ -109,7 +109,7 @@
                     $('#result').html('');
                 }
                 if (nor == 0 && data != '') {
-                    $('#result').html('Không có dữ liệu!');
+                    $('#result').html('${n.i18n.no_data}');
                 }
             }
         });

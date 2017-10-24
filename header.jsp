@@ -1,22 +1,26 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <jsp:useBean id="topmenu" class="neo.smartui.taglib.TreeView" scope="session"/>
 <jsp:useBean id="u" class="neo.velocity.common.ServiceUtility" scope="application"/>
 <jsp:setProperty name="n" property="language" value="${not empty param.language ? param.language : 'vi_VN'}"/>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="neo.velocity.common.ServiceUtility"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.Map"%>
 <% 
-	//request.getSession().setMaxInactiveInterval(30* 60); 
+   //request.getSession().setMaxInactiveInterval(30* 60); 
    String path = application.getRealPath("/").replace('\\', '/');
    session.setAttribute("lang","en_US");
    request.setAttribute("pathroot",path);
    session.setAttribute("pathroot",path);
-  //String lang = "";
-  //if(request.getAttribute("language") == null){
-  // lang = "vi_VN";
-  //}else{
-  // lang = request.getAttribute("language").toString();
-  //}
-  //request.setAttribute("language",lang); 
-  //out.println(lang);
+   //String lang = "";
+   //if(request.getAttribute("language") == null){
+   // lang = "vi_VN";
+   //}else{
+   // lang = request.getAttribute("language").toString();
+   //}
+   //request.setAttribute("language",lang); 
+   //out.println(lang);
    
    //response.setHeader( "Set-Cookie abcg", "name=true; HttpOnly");
    String sessionid = request.getSession().getId();
@@ -138,6 +142,7 @@
                   </li>
                </ul>
             </div>
+			<!--
             <div class ="navbar-custom-menu" >
                <ul class="nav navbar-nav">
                   <li class="dropdown user user-menu">            
@@ -167,6 +172,7 @@
                   </li>
                </ul>
             </div>
+			-->
             <br></br>
          </nav>
       </header>

@@ -8,11 +8,36 @@
 <%@page import="org.apache.commons.configuration.ConfigurationException"%>
 <%@page import="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy"%>
 <%@ page import = "java.util.Map" %>
+
+<%
+	String role ="";
+	String param2 = "";
+	if(request.getQueryString() != null){
+		param2 = request.getRequestURI()+"?"+request.getQueryString();
+	}else{
+		param2 = request.getRequestURI();
+	}
+	List<Map<String,String>> list_roles = 
+		ServiceUtility.ref("get_all_role_by_user","default",new String[]{request.getUserPrincipal().getName(),param2},2);
+	for (Map<String, String> map : list_roles) {
+		for (Map.Entry<String, String> entry : map.entrySet()) {
+			String key = entry.getKey();
+			role += entry.getValue();
+		}
+	}
+	System.out.println("ra di nao "+role);
+%>
 <%
 	//lay danh sach param neu ton tai
 	Map<String, String[]> parameters = request.getParameterMap();
 
-	String pathFile ="D:/_app/billing/data_rating/conf/";
+	String pathFile ="";
+	String os_name = System.getProperty("os.name");
+	if(os_name.toUpperCase().contains("WINDOW")){
+		pathFile = "D:/_app/billing/data_rating/conf/";
+	}else{
+		pathFile ="/billing/external_app/data_rating/conf/";
+	}
 	//doc file config.properties
 	String config_File = pathFile+"database.properties";
 	PropertiesConfiguration prop_Config = new PropertiesConfiguration();
@@ -86,6 +111,7 @@
 %>
 <html>
 <%@include file="header.jsp"%>
+<n:hasAnyRoles name="<%=role%>">
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
@@ -188,6 +214,8 @@
 </div>
 <!-- /.content-wrapper -->
 </div>
+</n:hasAnyRoles>
+<n:lacksRole name="<%=role%>"><div class="content-wrapper"><h1 align="center">You don't have role to enter this menu</h1></div></n:lacksRole>
 <!-- ./wrapper -->
 <%@include file="footer.jsp"%> 
 <script>

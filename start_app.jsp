@@ -1,16 +1,45 @@
 ﻿<!DOCTYPE html>
+<%@ taglib uri="/WEB-INF/neotag.tld" prefix="n" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.io.OutputStream,java.io.InputStream"%>
 <%@page import="java.util.List"%>
 <%@page import="java.io.BufferedReader"%>
 <%@page import="java.io.InputStreamReader"%>
 <%@page import="java.io.IOException"%>
 <%@page import="org.apache.commons.io.IOUtils"%>
-<%!
-	String path_app_1 = "D:/_app/billing/company";
-	String path_app_2 = "D:/_app/billing/voice";
-	String path_app_3 = "D:/_app/billing/data_rating";
+<%
+	String path_app_1 = "";
+	String path_app_2 = "";
+	String path_app_3 = "";
 	
+	String os_name = System.getProperty("os.name");
+	if(os_name.toUpperCase().contains("WINDOW")){
+		path_app_1 ="D:/_app/billing/company";
+		path_app_2 ="D:/_app/billing/voice";
+		path_app_3 ="D:/_app/billing/data_rating";
+	}else{
+		path_app_1 ="/billing/external_app/company";
+		path_app_2 ="/billing/external_app/voice";
+		path_app_3 ="/billing/external_app/data_rating";
+	}
+	
+	String role ="";
+	String param2 = "";
+	if(request.getQueryString() != null){
+		param2 = request.getRequestURI()+"?"+request.getQueryString();
+	}else{
+		param2 = request.getRequestURI();
+	}
+	List<Map<String,String>> list_roles = 
+		ServiceUtility.ref("get_all_role_by_user","default",new String[]{request.getUserPrincipal().getName(),param2},2);
+	for (Map<String, String> map : list_roles) {
+		for (Map.Entry<String, String> entry : map.entrySet()) {
+			String key = entry.getKey();
+			role += entry.getValue();
+		}
+	}
 %>
+
 <html>
    <head>
       <script src="/assets/bootstrap/plugins/jQuery/jQuery-2.1.4.min.js"></script>
@@ -87,6 +116,7 @@
       </style>
    </head>
    <%@include file="header.jsp"%>
+   <n:hasAnyRoles name="<%=role%>">
    <div class="content-wrapper">
    <!-- Content Header (Page header) -->
    <section class="main content-header">
@@ -112,12 +142,12 @@
                   <div class="col-md-4">
 				  <div class="box-header with-border">
                      <%
-                        String check1 = startApp("SQL Loader","/1090/API");
+                        String check1 = startApp("SQL Loader","/billing/external_app/company");
                          if(check1.equals("Started")){
-							String html ="<label class=\"switch\"><input id= \"myAnchor1\" type=\"checkbox\" checked onclick=\"beginApp(1,'D:/_app/billing/company')\"><span class=\"slider round\"></span></label>";
+							String html ="<label class=\"switch\"><input id= \"myAnchor1\" type=\"checkbox\" checked onclick=\"beginApp(1,'"+path_app_1+"')\"><span class=\"slider round\"></span></label>";
 							out.println(html);
                          }else{
-							String html ="<label class=\"switch\"><input id= \"myAnchor1\" type=\"checkbox\" onclick=\"beginApp(1,'D:/_app/billing/company')\"><span class=\"slider round\"></span></label>";
+							String html ="<label class=\"switch\"><input id= \"myAnchor1\" type=\"checkbox\" onclick=\"beginApp(1,'"+path_app_1+"')\"><span class=\"slider round\"></span></label>";
 							out.println(html);
                          }
                         %>
@@ -133,12 +163,12 @@
                   <div class="col-md-4">
 					<div class="box-header with-border">
                      <%
-                        String check2 = startApp("CDR Voice","/1090/API");
+                        String check2 = startApp("CDR Voice","/billing/external_app/voice");
                         if(check2.equals("Started")){
-							String html ="<label class=\"switch\"><input id= \"myAnchor2\" type=\"checkbox\" checked onclick=\"beginApp(2,'D:/_app/billing/voice')\"><span class=\"slider round\"></span></label>";
+							String html ="<label class=\"switch\"><input id= \"myAnchor2\" type=\"checkbox\" checked onclick=\"beginApp(2,'"+path_app_2+"')\"><span class=\"slider round\"></span></label>";
 							out.println(html);
                          }else{
-							String html ="<label class=\"switch\"><input id= \"myAnchor2\" type=\"checkbox\" onclick=\"beginApp(2,'D:/_app/billing/voice')\"><span class=\"slider round\"></span></label>";
+							String html ="<label class=\"switch\"><input id= \"myAnchor2\" type=\"checkbox\" onclick=\"beginApp(2,'"+path_app_2+"')\"><span class=\"slider round\"></span></label>";
 							out.println(html);
                          }
                         %>
@@ -154,12 +184,13 @@
                   <div class="col-md-4">
 				  <div class="box-header with-border">
                      <%
-                        String check3 = startApp("CDR Data","/1090/API");
+                        String check3 = startApp("CDR Data","/billing/external_app/data_rating");
+						//out.println(check3);
                          if(check3.equals("Started")){
-							String html ="<label class=\"switch\"><input id= \"myAnchor3\" type=\"checkbox\" checked onclick=\"beginApp(3,'D:/_app/billing/data_rating')\"><span class=\"slider round\"></span></label>";
+							String html ="<label class=\"switch\"><input id= \"myAnchor3\" type=\"checkbox\" checked onclick=\"beginApp(3,'"+path_app_3+"')\"><span class=\"slider round\"></span></label>";
 							out.println(html);
                          }else{
-							String html ="<label class=\"switch\"><input id= \"myAnchor3\" type=\"checkbox\" onclick=\"beginApp(3,'D:/_app/billing/data_rating')\"><span class=\"slider round\"></span></label>";
+							String html ="<label class=\"switch\"><input id= \"myAnchor3\" type=\"checkbox\" onclick=\"beginApp(3,'"+path_app_3+"')\"><span class=\"slider round\"></span></label>";
 							out.println(html);
                          }
                         %>
@@ -171,6 +202,8 @@
          </div>
       </div>
    </div>
+   </n:hasAnyRoles>
+<n:lacksRole name="<%=role%>"><div class="content-wrapper"><h1 align="center">You don't have role to enter this menu</h1></div></n:lacksRole>
 <%@include file="footer.jsp"%> 
 <script src = "/assets/bootstrap/js/jquery-ui.min.js"></script>
 <script>
@@ -194,7 +227,7 @@
            success: function(data){ 
 				if(data.indexOf("STOPPED")){
 					$("#myAnchor"+idApp).prop( "checked", false );
-					alert("Bạn đã tắt ứng dụng");
+					alert("${n.i18n.alert_stop_start_app}");
 				}
            }
          });
@@ -205,7 +238,7 @@
            success: function(data){ 
 				if(data.indexOf("RUNNING")){
 					$("#myAnchor"+idApp).prop( "checked", true );
-					alert("Bạn đã bật ứng dụng");
+					alert("${n.i18n.alert_start_stop_app}");
 				}
            }
          });
@@ -247,19 +280,23 @@
 		 }
 		 //neu la 1 ho cua Linux
 		 if(os_name.toUpperCase().contains("LINUX")){
+			 List<String> result = null;
+			 //String r_ ="";
 			try {
+				//pgrep -fl java
 				String []id;
-				Process p1 = Runtime.getRuntime().exec(new String[] { "ps", "-ef"});
+				Process p1 = Runtime.getRuntime().exec(new String[] { "pgrep", "-fl","java"});
 				InputStream input = p1.getInputStream();
 				Process p2 = Runtime.getRuntime().exec(new String[] { "grep", "java"});
 				OutputStream output = p2.getOutputStream();
 				IOUtils.copy(input, output);
 				output.close(); // signals grep to finish
-				List<String> result = IOUtils.readLines(p2.getInputStream());
+				result = IOUtils.readLines(p2.getInputStream());
+				
 				for(int i =0; i < result.size(); i++){
 					id = result.get(i).split(" ");
 					
-					p1 = Runtime.getRuntime().exec(new String[] { "pwdx",id[6]});
+					p1 = Runtime.getRuntime().exec(new String[] { "pwdx",id[0]});
 					input = p1.getInputStream();
 					List<String> resultID = IOUtils.readLines(input);
 					
@@ -267,7 +304,11 @@
 					if(resultID.get(0).contains(pathLinux)){
 						return "Started";
 					}
+					//for(int j = 0 ;j < id.length ;j++)
+					//r_ += id[0]+",";
+					//r_ += "\n";
 				}
+				//return r_;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

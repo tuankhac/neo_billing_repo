@@ -1,6 +1,6 @@
 <table id="cost_data" class='table table-condensed'>
     <tr>
-        <th colspan='4'><b>${n.i18n.crud_search_button_message.toUpperCase()}</b></th>
+        <th colspan='4'><b>${n.i18n.crud_new_button_message.toUpperCase()}</b></th>
     </tr>
     <tr>
         <td title="" id="name_label">${n.i18n.cost_data_name}</td>
@@ -34,7 +34,30 @@
             <input type="text" class="form-control" name="to_date" id="to_date"><span id="to_date_msg"></span>
         </td>
     </tr>
-
+	
+	<tr hidden>
+        <td title="" id="data_limit_label">${n.i18n.cost_data_data_limit}</td>
+        <td>
+            <input type="number" name="data_limit" class="form-control" id="data_limit"><span id="data_limit_msg"></span>
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+	
+	<!-- GIA CUOC THEO MOBIFONE-->
+	<tr>
+        <td title="" id="is_mobifone_label">${n.i18n.cost_data_is_mobifone}</td>
+        <td id="mobifone_limit_td">
+            <input type="checkbox" name="is_mobifone" id="is_mobifone"><span id="is_mobifone_msg"></span>
+        </td>
+		<!--
+        <td title="" id="mobifone_limit_label">${n.i18n.cost_data_mobifone_limit}</td>
+        <td>
+            <input type="number" min ="0" max="50" placeholder="max 50%" class="form-control" name="mobifone_limit" id="mobifone_limit"><span id="mobifone_limit_msg"></span>
+        </td>
+		-->
+    </tr>
+		
     <tr id='control'>
         <td colspan='4' align='center'>
             <font id="result"></font>
@@ -61,7 +84,7 @@
                 alert('${n.i18n.need_to_check_info_again}');
                 return;
             }
-            var exec = '&name=' + $('#name').val() + '&data=' + $('#data').val() + '&price=' + $('#price').val() + '&note=' + $('#note').val() + '&from_date=' + $('#from_date').val() + '&to_date=' + $('#to_date').val() + '&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+            var exec = '&name=' + $('#name').val() + '&data=' + $('#data').val() + '&price=' + $('#price').val() + '&note=' + $('#note').val() + '&from_date=' + $('#from_date').val() + '&to_date=' + $('#to_date').val()+"&is_mobifone="+$('#is_mobifone').is(':checked')+"&data_limit="+$('#data_limit').val()+ "&mobifone_limit="+$('#mobifone_limit').val() + '&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
             $('#result').html('${n.i18n.crud_process_message}');
             $.ajax({
                 url: 'crud_exec.jsp?crud_type=cost_data/new_exec.html' + exec,
@@ -123,6 +146,14 @@
                 }
             }
         });
+		
+		$('#is_mobifone').change(function() {
+			if($('#is_mobifone').is(":checked")){
+				$('<td title="" id="mobifone_limit_label">${n.i18n.cost_data_mobifone_limit}</td><td><input type="number" min ="0" max="50" placeholder="max 50%" class="form-control" name="mobifone_limit" id="mobifone_limit"><span id="mobifone_limit_msg"></span></td>').insertAfter("#mobifone_limit_td");
+			}else{
+				$("#mobifone_limit_td").nextAll().remove();
+			}
+		});
     });
     $(document).ready(function() {
         $('#from_date').datepicker({
